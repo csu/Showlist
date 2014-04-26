@@ -22,16 +22,6 @@ html{
 	height: 400px;
 }
 
-#top #topblock{
-	display: block;
-	background: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	height: 90px;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-
 
 #top #bottomblock{
 	display: block;
@@ -72,7 +62,6 @@ html{
 	height: 4px;
 }
 
-
 #top #rightnav{
 	position: absolute;
 	top: 30px;
@@ -103,31 +92,36 @@ html{
 
 #top #showcase{
 	display: inline-block;
-	width: 100%;
-	height: 400px;
+	width: 50%;
+	height: 310px;
+	margin-top: 90px;
 	text-align: center;
 	background-image: url(http://userserve-ak.last.fm/serve/_/67716968/Two+Door+Cinema+Club+Tudor+Cinema.png);
 	background-position: center center;
 	background-size: cover;
+	vertical-align: top;
 }
 
-#top #showcase .description{
-	position: absolute;
-	top: 300px;
-	left: 0;
-	width: 100%;
-	display: block;
+#top .description{
+	display: inline-block;
+	width: 50%;
+	height: 210px;
+	margin-top: 90px;
+	padding-top: 100px;
 	text-align: center;
+	vertical-align: top;
+	background-color: #eee;
+	color: #333;
 }
 
-#top #showcase .description .subtitle{
+#top .description .subtitle{
 	text-align: center;
 	font-size: 14px;
 	display: block;
 	text-align: center;
 }
 
-#top #showcase .description .bandtitle{
+#top .description .bandtitle{
 	font-size: 30px;
 	font-weight: 700;
 	display: block;
@@ -135,7 +129,7 @@ html{
 	text-align: center;
 }
 
-#top #showcase .description .text{
+#top .description .text{
 	font-size: 14px;
 	display: block;
 	text-align: center;
@@ -189,8 +183,6 @@ html{
 	width: 25%;
 	height: 200px;
 	background-color: #222;
-	background-size: cover;
-	background-position: center center;
 	vertical-align: top;
 	font-size: 12px;
 	color: #fff;
@@ -244,6 +236,74 @@ html{
 	text-align: center;
 }
 
+#content .gridlistview{
+	width: 80%;
+	padding: 20px 10% 0;
+	font-size: 0;
+}
+
+#content .gridlistview .title{
+	width: 100%;
+	display: inline-block;
+	font-size: 18px;
+	color: #333;
+	font-style: italic;
+	padding-bottom: 10px;
+}
+
+#content .gridlistview .gridlist{
+	display: inline-block;
+	width: 50%;
+}
+
+#content .gridlistview .gridlist .userinfo{
+	vertical-align: top;
+	display: inline-block;
+	width: 25%;
+}
+
+#content .gridlistview .gridlist .userinfo .infoimage{
+	width: 100%;
+	height: 96px;
+	display: block;
+	background-color: #eee;
+	background-size: cover;
+	background-position: center center;
+}
+
+#content .gridlistview .gridlist .userinfo .infoname{
+	width: 100%;
+	height: 32px;
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+	font-weight: 700;
+	text-align: center;
+}
+
+#content .gridlistview .gridlist .userreview{
+	vertical-align: top;
+	display: inline-block;
+	width: 65%;
+	padding: 0 5%;
+}
+
+#content .gridlistview .gridlist .userreview .reviewrating{
+	width: 100%;
+	height: 32px;
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+#content .gridlistview .gridlist .userreview .reviewtext{
+	width: 100%;
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+	padding-bottom: 20px;
+}
+
 #footer{
 	width: 80%;
 	padding: 20px 10% 100px;
@@ -253,6 +313,10 @@ html{
 
 
 @media all and (max-width: 959px) and (min-width: 640px) {
+
+	#content .gridlistview .gridlist{
+		width: 100%;
+	}
 	#content .gridview .grid{
 		width: 50%;
 	}
@@ -272,9 +336,23 @@ html{
 		vertical-align: bottom;
 		display: none;
 	}
+	#top #showcase{
+		width: 100%;
+	}
+	#top .description{
+		width: 100%;
+		margin-top: 0;
+		padding: 20px 0;
+		height: auto;
+		background-color: #eee;
+	}
 }
 
 @media all and (max-width: 639px) {
+
+	#content .gridlistview .gridlist{
+		width: 100%;
+	}
 	#content .gridview .grid{
 		width: 100%;
 	}
