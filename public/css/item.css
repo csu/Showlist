@@ -1,0 +1,386 @@
+html{
+	font-size: 0;
+	font-family: "roboto", sans-serif;
+	font-weight: 400;
+}
+
+
+#wrapper{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -50%;
+	width: 100%;
+}
+
+#top{
+	width: 100%;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	line-height: 30px;
+	height: 400px;
+}
+
+
+#top #bottomblock{
+	display: block;
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	top: 300px;
+	left: 0px;
+}
+
+#top .title{
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	font-size: 30px;
+	line-height: 40px;
+	font-weight: 100;
+	text-align: left;
+	font-style: italic;
+}
+
+#top .title .menu{
+	width: 22px;
+	height: 22px;
+	padding: 8px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	margin-right: 20px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#top .title .menu .seg{
+	display: block;
+	border-bottom: 2px solid #fff;
+	width: 100%;
+	height: 4px;
+}
+
+#top #rightnav{
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	display: inline-block;
+	text-align: right;
+}
+
+#top #rightnav .nav{
+	padding: 10px;
+	line-height: 18px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	vertical-align: bottom;
+	font-size: 14px;
+	margin-left: 10px;
+}
+
+#top #rightnav .nav .full{
+	vertical-align: bottom;
+	display: inline;
+}
+
+#top #rightnav .nav .narrow{
+	vertical-align: bottom;
+	display: none;
+}
+
+#top #showcase{
+	display: inline-block;
+	width: 50%;
+	height: 310px;
+	margin-top: 90px;
+	text-align: center;
+	background-image: url(http://userserve-ak.last.fm/serve/_/67716968/Two+Door+Cinema+Club+Tudor+Cinema.png);
+	background-position: center center;
+	background-size: cover;
+	vertical-align: top;
+}
+
+#top .description{
+	display: inline-block;
+	width: 50%;
+	height: 210px;
+	margin-top: 90px;
+	padding-top: 100px;
+	text-align: center;
+	vertical-align: top;
+	background-color: #eee;
+	color: #333;
+}
+
+#top .description .subtitle{
+	text-align: center;
+	font-size: 14px;
+	display: block;
+	text-align: center;
+}
+
+#top .description .bandtitle{
+	font-size: 30px;
+	font-weight: 700;
+	display: block;
+	font-style: italic;
+	text-align: center;
+}
+
+#top .description .text{
+	font-size: 14px;
+	display: block;
+	text-align: center;
+}
+
+#content{
+	width: 100%;
+	padding: 0 0 20px;
+	color: #000;
+}
+
+#content .filter{
+	width: 80%;
+	padding: 20px 10% 0;
+	text-align: right;
+	font-style: italic;
+}
+
+#content .filter .label{
+	display: inline-block;
+	font-size: 14px;
+	padding-left: 20px;
+	color: #333;
+	font-weight: 700;
+}
+
+#content .filter .criteria{
+	display: inline-block;
+	cursor: pointer;
+	font-size: 14px;
+	padding-left: 20px;
+	color: #666;
+}
+
+#content .gridview{
+	width: 80%;
+	padding: 20px 10% 0;
+}
+
+#content .gridview .title{
+	width: 100%;
+	display: inline-block;
+	font-size: 18px;
+	color: #333;
+	font-style: italic;
+	padding-bottom: 10px;
+}
+
+#content .gridview .grid{
+	display: inline-block;
+	width: 25%;
+	height: 200px;
+	background-color: #222;
+	background-size: cover;
+	background-position: center center;
+	vertical-align: top;
+	font-size: 12px;
+	color: #fff;
+}
+
+#content .gridview .grid.duo{
+	width: 50%;
+	height: 200px;
+	background-color: #666;
+}
+
+#content .gridview .grid.qua{
+	width: 100%;
+	height: 400px;
+	background-color: #888;
+}
+
+#content .gridview .grid.more{
+	background-color: #eee;
+	color: #333;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 18px;
+	line-height: 200px;
+}
+
+#content .gridview .grid .description{
+	padding-top: 130px;
+	width: 100%;
+	display: block;
+}
+
+#content .gridview .grid .description .subtitle{
+	text-align: center;
+	font-size: 10px;
+	display: block;
+	text-align: center;
+}
+
+#content .gridview .grid .description .bandtitle{
+	font-size: 14px;
+	font-weight: 700;
+	display: block;
+	font-style: italic;
+	text-align: center;
+}
+
+#content .gridview .grid .description .text{
+	font-size: 10px;
+	display: block;
+	text-align: center;
+}
+
+#content .gridlistview{
+	width: 80%;
+	padding: 20px 10% 0;
+	font-size: 0;
+}
+
+#content .gridlistview .title{
+	width: 100%;
+	display: inline-block;
+	font-size: 18px;
+	color: #333;
+	font-style: italic;
+	padding-bottom: 10px;
+}
+
+#content .gridlistview .gridlist{
+	display: inline-block;
+	width: 50%;
+}
+
+#content .gridlistview .gridlist .userinfo{
+	vertical-align: top;
+	display: inline-block;
+	width: 25%;
+}
+
+#content .gridlistview .gridlist .userinfo .infoimage{
+	width: 100%;
+	height: 96px;
+	display: block;
+	background-color: #eee;
+	background-size: cover;
+	background-position: center center;
+	background-image: url("http://placekitten.com/200/300");
+}
+
+#content .gridlistview .gridlist .userinfo .infoname{
+	width: 100%;
+	height: 32px;
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+	font-weight: 700;
+	text-align: center;
+}
+
+#content .gridlistview .gridlist .userreview{
+	vertical-align: top;
+	display: inline-block;
+	width: 65%;
+	padding: 0 5%;
+}
+
+#content .gridlistview .gridlist .userreview .reviewrating{
+	width: 100%;
+	height: 32px;
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+#content .gridlistview .gridlist .userreview .reviewtext{
+	width: 100%;
+	display: block;
+	font-size: 12px;
+	line-height: 16px;
+	padding-bottom: 20px;
+}
+
+#footer{
+	width: 80%;
+	padding: 20px 10% 100px;
+	color: #fff;
+	font-size: 12px;
+}
+
+
+@media all and (max-width: 959px) and (min-width: 640px) {
+
+	#content .gridlistview .gridlist{
+		width: 100%;
+	}
+	#content .gridview .grid{
+		width: 50%;
+	}
+	#content .gridview .grid.duo{
+		width: 100%;
+	}
+}
+
+@media all and (max-width: 799px) {
+
+	#top #rightnav .nav .narrow{
+		vertical-align: bottom;
+		display: inline;
+	}
+
+	#top #rightnav .nav .full{
+		vertical-align: bottom;
+		display: none;
+	}
+	#top #showcase{
+		width: 100%;
+	}
+	#top .description{
+		width: 100%;
+		margin-top: 0;
+		padding: 20px 0;
+		height: auto;
+		background-color: #eee;
+	}
+	#top {
+		height: auto;
+	}
+}
+
+@media all and (max-width: 639px) {
+
+	#content .gridlistview .gridlist{
+		width: 100%;
+	}
+	#content .gridview .grid{
+		width: 100%;
+	}
+	#content .gridview .grid.duo{
+		width: 100%;
+	}
+}
+
+@media all and (min-width: 1600px) {
+
+
+	body{
+		background-color: #333;
+	}
+
+	#wrapper {
+		width: 1600px;
+		margin-left: -800px;
+	}
+
+	#content {
+		background-color: #fff;
+	}
+
+}

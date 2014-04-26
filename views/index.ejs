@@ -1,33 +1,157 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 <head>
-	<title>Node Authentication</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; }
-	</style>
+	<title>SHOWLIST</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<link href="css/landing.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="container">
-
-	<div class="jumbotron text-center">
-		<h1><span class="fa fa-lock"></span> Node Authentication</h1>
-
-		<p>Login or Register with:</p>
-
-<!-- 		<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-		<a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a> -->
-		<a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-<!-- 		<a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
-		<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a> -->
+<div id="wrapper">
+	<div id="top">
+		<span id="showcase">
+			<span id="topblock"></span>
+			<span id="bottomblock"></span>
+			<span class="description">
+				<span class="subtitle">4.6 / 5</span>
+				<span class="bandtitle">Two Door Cinema Club</span>
+				<span class="text">The Neptune | LAST NIGHT 20:00</span>
+			</span>
+		</span>
+		<span class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
+		<span id="rightnav">
+			<span class="nav"><span class="full">RATE A SHOW</span><span class="narrow">RATE</span></span>
+		</span>
 	</div>
-
-	<div class="text-center">
-<!-- 		<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-		<p>Visit the <a href="http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local">tutorial</a>.</p> -->
+	<div id="content">
+		<div class="filter">
+			<span class="label">DISPLAY MODE</span>
+			<span class="criteria">SHOW</span>
+			<span class="criteria">ARTIST</span>
+			<span class="criteria">VENUE</span>
+		</div>
+		<div class="gridview">
+			<span class="title">JUST HAPPENED</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid more">MORE</span>
+		</div>
+		<div class="gridview">
+			<span class="title">UPCOMING SHOW</span>
+			<!--span class="grid qua">1</span-->
+			<span class="grid duo">
+				<span class="description">
+					<span class="subtitle">TONIGHT 20:00</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | Seattle, WA</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT 20:00</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | Seattle, WA</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT 20:00</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | Seattle, WA</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TOMORROW NIGHT 20:00</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | Seattle, WA</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TOMORROW NIGHT 20:00</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | Seattle, WA</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TOMORROW NIGHT 20:00</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | Seattle, WA</span>
+				</span>
+			</span>
+			<span class="grid more">MORE</span>
+		</div>
+		<div class="gridview">
+			<span class="title">PRAISED SHOWS</span>
+			<!--span class="grid qua">1</span-->
+			<span class="grid duo">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid">
+				<span class="description">
+					<span class="subtitle">TONIGHT</span>
+					<span class="bandtitle">Two Door Cinema Club</span>
+					<span class="text">The Neptune | 20:00</span>
+				</span>
+			</span>
+			<span class="grid more">MORE</span>
+		</div>
 	</div>
-
+	<div id="footer"></div>
 </div>
 </body>
 </html>
