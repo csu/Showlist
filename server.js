@@ -122,8 +122,8 @@ function calculateNewRating(artist_id, rating, num, cum) {
   updateArtistRating(artist_id, num, cum);
 }
 
-function updateArtistRating(artist_id, num, cum) {
-  Artist.update({"artist_id": artist_id}, { $set: {number_of_ratings: num, cumulative_rating: cum }});
+function updateArtistRating(id, num, cum) {
+  Artist.update({artist_id: id}, { $set: {number_of_ratings: num, cumulative_rating: cum }});
 }
 
 Review.after('post', function(req, res, next) {
