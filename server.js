@@ -212,37 +212,37 @@ app.get('/event/:event_id', function (req, res) {
     });
 });
 
-function getAuthTokenForUser(res, uid) {
-  User.findOne({ user_id: uid }, function(err, result) {
-    // console.log(result);
-    getUserLikes(res, result['facebook_token']);
-  })
-}
+// function getAuthTokenForUser(res, uid) {
+//   User.findOne({ user_id: uid }, function(err, result) {
+//     // console.log(result);
+//     getUserLikes(res, result['facebook_token']);
+//   })
+// }
 
-function getUserLikes(res, token) {
-  var path = 'https://graph.facebook.com/me/likes?limit=1000&access_token=' + token;
-  // console.log(path);
-  request(path, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      // console.log(body);
-      var body = JSON.parse(body);
-      var data = body["data"];
-      var artist_names = [];
-      for (item in data) {
-        //console.log(item);
-        if (data[item]["category"] == "Musician/band") {
-          artist_names.push(data[item]["name"]);
-        }
-      }
-      res.json(artist_names);
-    }
-  });
-}
+// function getUserLikes(res, token) {
+//   var path = 'https://graph.facebook.com/me/likes?limit=1000&access_token=' + token;
+//   // console.log(path);
+//   request(path, function (error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//       // console.log(body);
+//       var body = JSON.parse(body);
+//       var data = body["data"];
+//       var artist_names = [];
+//       for (item in data) {
+//         //console.log(item);
+//         if (data[item]["category"] == "Musician/band") {
+//           artist_names.push(data[item]["name"]);
+//         }
+//       }
+//       res.json(artist_names);
+//     }
+//   });
+// }
 
-app.get('/api/likes', function (req, res) {
-  getAuthTokenForUser(res, req.session['passport']['user']);
-  // res.send();
-});
+// app.get('/api/likes', function (req, res) {
+//   getAuthTokenForUser(res, req.session['passport']['user']);
+//   // res.send();
+// });
 
 // launch ======================================================================
 app.listen(port);
