@@ -3,6 +3,7 @@ var express = require('express'),
     restful = require('node-restful'),
     mongoose = restful.mongoose;
 var facebook = require('./facebook.js');
+var https = require('https');
 var app      = express();
 var port     = process.env.PORT || 3000;
 var mongoose = require('mongoose');
@@ -42,7 +43,7 @@ app.configure(function() {
 });
 
 var Artist = app.resource = restful.model('artist', mongoose.Schema({
-    artist_id: { type: 'string', unique: true, required: true },
+    artist_id: { type: 'string', unique: true, required: true, lowercase: true },
     cumulative_rating: { type: 'number', required: true, default: 0 },
     number_of_ratings: { type: 'number', required: true, default: 0 }
   }))
@@ -75,7 +76,7 @@ var validateUser = function(req, res, next) {
 var Review = app.resource = restful.model('review', mongoose.Schema({
     // artist_id: { type: 'ObjectId', ref: 'artist', require: true},
     // creator: { type: 'ObjectId', ref: 'user', require: true},
-    artist_id: { type: 'string', required: true},
+    artist_id: { type: 'string', required: true, lowercase: true },
     event_id: { type: 'string', required: true},
     creator: { type: 'string', required: true},
     rating: { type: 'number', required: true},
@@ -108,7 +109,27 @@ Review.route('get', function(req, res, next) {
 
 function updateRatingsPhase1(artist_id, rating) {
   Artist.findOne({"artist_id": artist_id}, function(err, data) {
-      updateRatingsPhase2(artist_id, rating, data['number_of_ratings']);
+    if (data != null) {
+        updateRatingsPhase2(artist_id, rating, data['number_of_ratings']);
+      }
+      else { // it is a new artist and needs to be created
+        makeNewArtist(artist_id, rating);
+      }
+    });
+}
+
+function makeNewArtist(artist_id, rating) {
+  var newArtist = new Artist({
+        "artist_id": artist_id,
+        "cumulative_rating": rating,
+        "number_of_ratings": 1
+    });
+    newArtist.save(function(err) {
+        if (!err) {
+            return console.log('created');
+        } else {
+            return console.log(err);
+        }
     });
 }
 
@@ -134,7 +155,7 @@ function updateArtistRating(id, num, cum) {
 }
 
 Review.after('post', function(req, res, next) {
-  updateRatingsPhase1(req.body.artist_id, req.body.rating);
+  updateRatingsPhase1(req.body.artist_id.toLowerCase(), req.body.rating);
   next();
 });
 
@@ -180,16 +201,41 @@ app.get('/event/:event_id', function (req, res) {
 
 function getAuthTokenForUser(uid) {
   User.findOne({ user_id: uid }, function(err, result) {
-    console.log(result['facebook_token']);
     return result['facebook_token'];
   })
 }
 
-app.get('/getMusicLikes', function (req, res) {
-  var token = getAuthTokenForUser(req.session['passport']['user']);
-  facebook.getFbData('token', 'me/likes', function(data){
-    console.log(data);
+function getUserLikes(token) {
+  var token = token;
+  var options = {
+    hostname: 'graph.facebook.com',
+    port: 443,
+    path: '/me/likes?access_token=' + token,
+    method: 'GET'
+  };
+
+  var req = https.request(options, function(res) {
+    console.log("statusCode: ", res.statusCode);
+    console.log("headers: ", res.headers);
+
+    res.on('data', function(d) {
+      process.stdout.write(d);
+    });
   });
+  req.end();
+
+  req.on('error', function(e) {
+    console.error(e);
+  });
+}
+
+app.get('/api/likes', function (req, res) {
+
+
+  // facebook.getFbData('token', '/me/likes', function(data){
+  //   console.log(data);
+  // });
+
   res.send('hi');
 });
 
