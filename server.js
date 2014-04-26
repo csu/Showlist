@@ -8,6 +8,8 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 
+var User = require('./app/models/user');
+
 var configDB = require('./config/database.js');
 
 app.use(express.bodyParser());
@@ -26,7 +28,7 @@ app.configure(function() {
 	app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	app.use(express.bodyParser()); // get information from html forms
-	app.set('view engine', 'jade'); // set up ejs for templating
+	// app.set('view engine', 'jade'); // set up ejs for templating
 
 	// passport
 	app.use(express.session({ secret: 'kCfPusdpqme6cwc9UgpA' })); // session secret
@@ -45,17 +47,17 @@ var Artist = app.resource = restful.model('artist', mongoose.Schema({
 
 Artist.register(app, '/api/artists');
 
-var User = app.resource = restful.model('user', mongoose.Schema({
-    provider: { type: 'string', required: true },
-    user_id: { type: 'string', unique: true, required: true},
-    name: { type: 'string', required: true},
-    email: { type: 'string', required: true},
-    photo: { type: 'string'},
-    facebook_token: { type: 'string', required: true}
-  }))
-  .methods(['get', 'post', 'put', 'delete']);
+// var User = app.resource = restful.model('user', mongoose.Schema({
+//     provider: { type: 'string', required: true },
+//     user_id: { type: 'string', unique: true, required: true},
+//     name: { type: 'string', required: true},
+//     email: { type: 'string', required: true},
+//     photo: { type: 'string'},
+//     facebook_token: { type: 'string', required: true}
+//   }))
+//   .methods(['get', 'post', 'put', 'delete']);
 
-User.register(app, '/api/user');
+// User.register(app, '/api/user');
 
 var validateUser = function(req, res, next) {
   if (!req.body.creator) {
@@ -94,6 +96,45 @@ Review.register(app, '/api/reviews');
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+app.get('/artist/:artist_id', function (req, res) {
+  Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
+          var photo_arr = []
+          for (item in reviews) {
+            User.findOne({"user_id": reviews[item].creator }, function (err2, creator) {
+              photo_arr.push(creator.photo);
+            });
+          }
+          res.render('item.jade',
+            { "reviews" : reviews,
+            "photos" : photo_arr }
+          );
+    });
+});
+
+// app.get('/artist/:artist_id', function (req, res) {
+//   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
+//         var creator_list = [];
+//         for (item in reviews) {
+//           creator_list.push(reviews[item].creator);
+//         }
+//         console.log(creator_list);
+//         User.find({"user_id": { $in: creator_list }}, function (err2, creators) {
+//           for (item in reviews) {
+//             reviews[item].photo = creators.
+//           }
+//           var photos_list = [];
+//           for (c in creators) {
+//             photos_list.push(creators[c].photo);
+//           }
+//           console.log(photos_list);
+//           res.render('item.jade',
+//             { "reviews" : reviews,
+//             "profile_pictures" : photos_list }
+//           );
+//         });
+//     });
+// });
 
 // launch ======================================================================
 app.listen(port);
