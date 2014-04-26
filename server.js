@@ -65,15 +65,27 @@ var validateUser = function(req, res, next) {
 }
 
 var Review = app.resource = restful.model('review', mongoose.Schema({
-    artist_id: { type: 'ObjectId', ref: 'artist', require: true},
-    creator: { type: 'ObjectId', ref: 'user', require: true},
-    number_of_ratings: { type: 'number', required: true},
+    // artist_id: { type: 'ObjectId', ref: 'artist', require: true},
+    // creator: { type: 'ObjectId', ref: 'user', require: true},
+    artist_id: { type: 'string', required: true},
+    creator: { type: 'string', required: true},
     rating: { type: 'number', required: true},
     review_body: { type: 'string', required: true},
     event_id: 'string'
   }))
   // .methods(['get', { type: 'post', before: validateUser }, { type: 'put', before: validateUser }, 'delete']);
-  .methods(['get', 'post', 'put', 'delete']);
+  .methods(['post', 'put', 'delete']);
+
+Review.route('get', function(req, res, next) {
+  console.log('searching for artist_id: ' + req.query.artist_id);
+    Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
+        if (!err) {
+            return res.json(reviews);
+        } else {
+            console.log(err);
+        }
+    })
+});
 
 Review.register(app, '/api/reviews');
 
