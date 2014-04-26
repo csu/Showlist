@@ -24,6 +24,7 @@ require('./config/passport')(passport); // pass passport for configuration
 app.configure(function() {
 
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.favicon(path.join(__dirname, 'public/graphics/favicon.ico'))); 
 
 	// express
 	app.use(express.logger('dev')); // log every request to the console
