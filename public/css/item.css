@@ -269,6 +269,7 @@ html{
 	background-color: #eee;
 	background-size: cover;
 	background-position: center center;
+	background-image: url("http://placekitten.com/200/300");
 }
 
 #content .gridlistview .gridlist .userinfo .infoname{
