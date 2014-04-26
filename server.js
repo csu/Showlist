@@ -1,7 +1,3 @@
-// server.js
-
-// set up ======================================================================
-// get all the tools we need
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 3000;
@@ -23,10 +19,10 @@ app.configure(function() {
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	app.use(express.bodyParser()); // get information from html forms
 
-	app.set('view engine', 'ejs'); // set up ejs for templating
+	app.set('view engine', 'jade'); // set up ejs for templating
 
 	// required for passport
-	app.use(express.session({ secret: 'asdfhjkasdhfjksdhf' })); // session secret
+	app.use(express.session({ secret: 'kCfPusdpqme6cwc9UgpA' })); // session secret
 	app.use(passport.initialize());
 	app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
