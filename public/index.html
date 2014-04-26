@@ -20,10 +20,10 @@
 				<span class="text">The Neptune | LAST NIGHT 20:00</span>
 			</span>
 		</span>
-		<span id ="topMenuButton" class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
+		<span class="title"><span id="topMenuButton" class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><a href="/">SHOWLIST</a></span>
 		<span id="rightnav">
       		<span class="nav"><span class="full"><img src="graphics/searchicon.png" style="vertical-align: bottom; margin-right: 10px;" />SEARCH</span><span class="narrow"><img src="graphics/searchicon.png" style="vertical-align: bottom;" /></span></span>
-			<span id =currentCity class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />SET LOCATION</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
+			<span id =currentCity class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />LOCATING...</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
 		</span>
 		<span id="topmenu">
 			<span class="row name">ANIKET HANDA</span>
@@ -39,7 +39,7 @@
 			<span class="criteria">ARTIST</span>
 			<span class="criteria">VENUE</span>
 		</div>
-		<div class="gridview">
+		<!--div class="gridview">
 			<span class="title">JUST HAPPENED</span>
 			<span class="grid">
 				<span class="description">
@@ -63,7 +63,7 @@
 				</span>
 			</span>
 			<span class="grid more">MORE</span>
-		</div>
+		</div-->
 
 		<div id="upcomingShows" class="gridview">
 			<span class="title">UPCOMING SHOW</span>
@@ -72,9 +72,8 @@
 			
 		</div>
 
-		<div class="gridview">
+		<!--div class="gridview">
 			<span class="title">PRAISED SHOWS</span>
-			<!--span class="grid qua">1</span-->
 			<span class="grid duo">
 				<span class="description">
 					<span class="subtitle">TONIGHT</span>
@@ -118,9 +117,13 @@
 				</span>
 			</span>
 			<span class="grid more">MORE</span>
+		</div-->
+	</div>
+	<div id="metros">
+		<div class="metrooptions">
+			<div class="close">CLOSE</div>
 		</div>
 	</div>
-	<div id="metros"></div>
 	<div id="footer"></div>
 </div>
 <script>
@@ -197,10 +200,11 @@ function showPosition(position)
 
     for (var i in data.metros.metro) {
       var city = data.metros.metro[i].name;
-      $("<div id=\"city"+i+"\" style=\"cursor:pointer\">").html(data.metros.metro[i].name).appendTo("#metros").click(
+      $("<div class=\"metrooption\" id=\"city"+i+"\" style=\"cursor:pointer\">").html(data.metros.metro[i].name).appendTo(".metrooptions").click(
         function () {
            sessionStorage.currentCity = this.innerHTML;
            updateLocation();
+           $("#metros").hide();
         });
       //console.log(data.metros.metro[i].name);
     }
@@ -210,6 +214,14 @@ function showPosition(position)
 
 	$( "#topMenuButton" ).click(function() {
   		$( "#topmenu" ).toggle();
+	});
+
+	$( "#metros .metrooptions .close" ).click(function(){
+		$("#metros").hide();
+	});
+
+	$( "#currentCity" ).click(function(){
+		$("#metros").show();
 	});
 
   </script>
