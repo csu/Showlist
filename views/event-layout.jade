@@ -11,7 +11,7 @@ html
       #top
         span#showcase
         span.description
-          span.subtitle 4.6 / 5
+          span#bandSubtitle.subtitle 4.7 / 5
           span#bandTitle.bandtitle
           span#bandL1.text
           span#bandL2.text
@@ -53,6 +53,14 @@ html
         }).done(function( data ) {
           console.log(data);
           $("<div>").html(data.event.title).appendTo("#bandTitle");
+          
+          var backendAPI = "/api/artists";
+          $.getJSON( backendAPI, {
+              artist_id: data.event.artists.headliner
+            }).done(function( data ) {
+              console.log(data);
+              $("<div>").html(data.rating).appendTo("#bandSubtitle");
+          });
           $("<div>").html(data.event.venue.name).appendTo("#bandL1");
           $("<div>").html(data.event.venue.location.street).appendTo("#bandL2");
           $("<div>").html(data.event.venue.location.city).appendTo("#bandL3");
