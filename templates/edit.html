@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 	<link href="theme/edit.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic' rel='stylesheet' type='text/css'>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -41,24 +42,39 @@
 			<span class="criteria">VIDEO</span>
 			<span class="criteria">AUDIO</span>
 		</div-->
+		<form>
 		<div id="ratingview">
 			<span class="title">RATING</span>
 			<span class="rating">
-				<span class="point rated"></span>
-				<span class="point rated"></span>
-				<span class="point rated"></span>
-				<span class="point rated"></span>
-				<span class="point"></span>
+				<span class="point rated" id="point1" value="1"></span>
+				<span class="point rated" id="point2" value="2"></span>
+				<span class="point rated" id="point3" value="3"></span>
+				<span class="point rated" id="point4" value="4"></span>
+				<span class="point" id="point5" value="5"></span>
 			</span>
-			<span class="number"><span class="score">4</span> / 5</span>
+			<span class="number"><input class="score" style="border: 0px; width: 20px; font-style: italic; font-style: 'roboto', sans-serif;" class="reviewRating" value="4" disabled>/ 5</span>
 		</div>
 		<div id="editview">
 			<span class="title">TEXT</span>
-			<textarea></textarea>
-
+			<textarea class="reviewText"></textarea>
 		</div>
+		</form>
 	</div>
 	<div id="footer"></div>
+	<script>
+		$(".point").click(function(){
+			var value = parseInt($(this).attr("value"));
+			console.log(value);
+			for(var ra = 1; ra <= 5; ++ra){
+				$("#point"+ra).removeClass("rated");
+				if(value >= ra){
+					$("#point"+ra).addClass("rated");
+				}
+			}
+			/**$(".score").html(value);**/
+			$(".score").attr("value", value);
+		});
+	</script>
 </div>
 </body>
 </html>
