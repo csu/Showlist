@@ -81,17 +81,19 @@ html{
 
 #top #showcase{
 	display: inline-block;
-	margin-left: 10%;
+	padding: 0 10%;
 	width: 80%;
 	height: 110px;
 	margin-top: 90px;
 	text-align: center;
+	background-image: url('http://www.desktopbackgrounds.me/wp-content/uploads/2013/09/Kyle-Gray-Polygon-Walls-1024x768.jpg');
+	background-size: cover;
+	background-position: center center;
 }
 
 #top #showcase .grid{
 	width: 25%;
 	height: 110px;
-	background-color: #333;
 	color: #fff;
 	display: inline-block;
 	vertical-align: top;
@@ -108,6 +110,7 @@ html{
 
 #top #showcase .grid.label .description{
 	cursor: auto;
+	border-top: 2px solid #333;
 }
 
 #top #showcase .grid .description:hover{
@@ -115,7 +118,7 @@ html{
 }
 
 #top #showcase .grid.label .description:hover{
-	border-top: 2px solid #fff;
+	border-top: 2px solid #333;
 }
 
 #top #showcase .grid .description .label{
@@ -169,14 +172,14 @@ html{
 	color: #666;
 }
 
-#content #uploadview{
+#content #ratingview{
 	width: 20%;
 	padding: 20px 0 0 10%;
 	display: inline-block;
 	vertical-align: top;
 }
 
-#content #uploadview .title{
+#content #ratingview .title{
 	width: 100%;
 	display: inline-block;
 	font-size: 18px;
@@ -185,13 +188,46 @@ html{
 	padding-bottom: 10px;
 }
 
-#content #uploadview .option{
+#content #ratingview .rating{
 	display: block;
-	border-bottom: 1px solid #aaa;
-	font-size: 14px;
-	color: #333;
 	padding-bottom: 10px;
 	padding-top: 10px;
+}
+
+#content #ratingview .rating .point{
+	cursor: pointer;
+	display: inline-block;
+	border-radius: 8px;
+	border: 8px solid #eee;
+	margin-right: 6px;
+}
+
+#content #ratingview .rating .point:hover{
+	border: 8px solid #d0a;
+}
+
+#content #ratingview .rating .point.rated{
+	border: 8px solid #80a;
+}
+
+#content #ratingview .rating .point.rated:hover{
+	border: 8px solid #a0d;
+}
+
+#content #ratingview .rating .point.semirated{
+	border-top: 8px solid #80a;
+	border-left: 8px solid #80a;
+}
+
+#content #ratingview .number{
+	font-style: italic;
+	font-size: 14px;
+}
+
+#content #ratingview .number .score{
+	color: #80a;
+	font-weight: 700;
+	font-size: 18px;
 }
 
 #content #editview{
@@ -266,7 +302,7 @@ html{
 		padding: 20px 10% 0;
 	}
 
-	#content #uploadview{
+	#content #ratingview{
 		width: 80%;
 		padding: 20px 10% 0;
 	}
