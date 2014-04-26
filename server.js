@@ -123,7 +123,12 @@ function calculateNewRating(artist_id, rating, num, cum) {
 }
 
 function updateArtistRating(id, num, cum) {
-  Artist.update({artist_id: id}, { $set: {number_of_ratings: num, cumulative_rating: cum }});
+  //Artist.findOneAndUpdate({artist_id: id}, { number_of_ratings: num, cumulative_rating: cum });
+  Artist.findOne({ artist_id: id }, function (err, doc) {
+    doc.number_of_ratings = num;
+    doc.cumulative_rating = cum;
+    doc.save();
+  })
 }
 
 Review.after('post', function(req, res, next) {
