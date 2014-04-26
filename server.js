@@ -76,8 +76,7 @@ var Review = app.resource = restful.model('review', mongoose.Schema({
     event_id: { type: 'string', required: true},
     creator: { type: 'string', required: true},
     rating: { type: 'number', required: true},
-    review_body: { type: 'string', required: true},
-    event_id: 'string'
+    review_body: { type: 'string', required: true}
   }))
   // .methods(['get', { type: 'post', before: validateUser }, { type: 'put', before: validateUser }, 'delete']);
   .methods(['post', 'put', 'delete']);
@@ -104,21 +103,83 @@ Review.route('get', function(req, res, next) {
 //     })
 // });
 
-Review.after('post', function(req, res, next) {
-  var avg = 0;
-  var num = 0;
-  Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
-        for (review in reviews) {
-          avg += parseInt(review.rating);
-          num++;
-        }
+function updateRatingsPhase1(artist_id, rating) {
+  Artist.findOne({"artist_id": artist_id}, function(err, data) {
+      // console.log('data: ' + data);
+      // console.log('num: ' + data['number_of_ratings']);
+      updateRatingsPhase2(artist_id, rating, data['number_of_ratings']);
     });
-  avg = avg/num;
-  console.log('avg: ' + avg);
-  console.log('num: ' + num);
-  Artist.update({ artist_id: req.query.artist_id }, { $set: { cumulative_rating: avg, number_of_ratings: num }});
-  next(); // Don't forget to call next!
+}
+
+function updateRatingsPhase2(artist_id, rating, num) {
+  Artist.findOne({"artist_id": artist_id}, function(err, data) {
+    // console.log('cum: ' + data['cumulative_rating']);
+    calculateNewRating(artist_id, rating, num, data['cumulative_rating']);
+  });
+}
+
+function calculateNewRating(artist_id, rating, num, cum) {
+  // console.log('rating: ' + rating);
+  // console.log('cum*num=' + cum*num);
+  // console.log('(cum*num)+rating=' + cum*num+rating);
+  // console.log('((cum*num)+rating)/(num+1)=' + ((cum*num)+rating)/(num+1));
+  cum = ((cum*num)+parseInt(rating))/(num+1);
+  console.log('new cum: ' + cum);
+  num = num+1;
+  console.log('new num: ' + num);
+  updateArtistRating(artist_id, num, cum);
+}
+
+function updateArtistRating(artist_id, num, cum) {
+  Artist.update({"artist_id": artist_id}, { number_of_ratings: num, cumulative_rating: cum });
+}
+
+Review.after('post', function(req, res, next) {
+  // num = getNumberOfRatings(req.body.artist_id)+1;
+  // cum = ((getCumulativeRating(req.body.artist_id)*(num-1))+req.body.rating)/num;
+  // Artist.update({"artist_id": req.body.artist_id}, { number_of_ratings: num, cumulative_rating: cum});
+  // console.log('artist_id: ' + req.body.artist_id);
+  updateRatingsPhase1(req.body.artist_id, req.body.rating);
+  next();
 });
+
+// function getNumberOfRatings(artist_id) {
+//   Artist.findOne({"artist_id": artist_id}, function(err, data) {
+//     console.log('num: ' + data['number_of_ratings'])
+//     return data['number_of_ratings'];
+//   });
+// }
+
+// function getCumulativeRating(artist_id) {
+//   Artist.findOne({"artist_id": artist_id}, function(err, data) {
+//     console.log('cum: ' + data['cumulative_rating'])
+//     return data['cumulative_rating'];
+//   });
+// }
+
+// Review.after('post', function(req, res, next) {
+//   var avg = 0;
+//   var num = 0;
+//   console.log(req.body.artist_id);
+//   console.log(req.body.rating);
+//   Review.find({"artist_id": req.body.artist_id}, function(err, results) {
+//         if (results.length == 0) {
+//           avg = parseInt(req.body.rating);
+//           num = 1;
+//         }
+//         else {
+//           for (review in results) {
+//             avg += parseInt(review.rating);
+//             num++;
+//           }
+//         }
+//     });
+//   avg = avg/num;
+//   console.log('avg: ' + avg);
+//   console.log('num: ' + num);
+//   Artist.update({ artist_id: req.query.artist_id }, { $set: { cumulative_rating: avg, number_of_ratings: num }});
+//   next();
+// });
 
 Review.register(app, '/api/reviews');
 
