@@ -1,0 +1,137 @@
+html
+  head
+    title SHOWLIST
+    meta(http-equiv='content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0')
+    link(href='theme/item.css', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic', rel='stylesheet', type='text/css')
+    script(src='//code.jquery.com/jquery-1.10.2.js')
+  body
+    #wrapper
+      #top
+        span#showcase
+        span.description
+          span.subtitle 4.6 / 5
+          span#bandTitle.bandtitle
+          span#bandL1.text
+          span#bandL2.text
+          span#bandL3.text
+        span.title
+          span.menu
+            span.seg
+            span.seg
+            span.seg
+          | SHOWLIST
+        span#rightnav
+          span.nav
+            span.full RATE THIS SHOW
+            span.narrow RATE
+      #content
+        .filter
+          span.label FILTER
+          span.criteria TEXT
+          span.criteria PHOTO
+          span.criteria VIDEO
+          span.criteria AUDIO
+        .gridlistview
+          span.title AUDIENCE REVIEW
+          block event_reviews
+        #upcomingShows.gridview
+          span.title UPCOMING SHOWS
+        #pastShows.gridview
+          span.title PREVIOUS SHOWS
+      #footer
+    script
+      function getUrlParameter(paramName)
+      {
+      var sURL = window.document.URL.toString();
+      if (sURL.indexOf("?") > 0)
+      {
+      var arrParams = sURL.split("?");
+      var arrURLParams = arrParams[1].split("&");
+      var arrParamNames = new Array(arrURLParams.length);
+      var arrParamValues = new Array(arrURLParams.length);
+      var i = 0;
+      for (i=0;i<arrURLParams.length;i++)
+      {
+      var sParam =  arrURLParams[i].split("=");
+      arrParamNames[i] = sParam[0];
+      if (sParam[1] != "")
+      arrParamValues[i] = unescape(sParam[1]);
+      else
+      arrParamValues[i] = "No Value";
+      }
+      for (i=0;i<arrURLParams.length;i++)
+      {
+      if(arrParamNames[i] == paramName){
+      //alert("Param:"+arrParamValues[i]);
+      return arrParamValues[i];
+      }
+      }
+      return "No Parameters Found";
+      }
+      }
+      (function() {
+      var eventId = getUrlParameter('id');
+      console.log(eventId);
+      var lastFMAPI = "http://ws.audioscrobbler.com/2.0/?method=event.getinfo";
+      $.getJSON( lastFMAPI, {
+      event: eventId,
+      api_key: "5e71d4525ae20c7db52688e610bea78f",
+      format: "json"
+      }).done(function( data ) {
+      console.log(data);
+      $("<div>").html(data.event.title).appendTo("#bandTitle");
+      $("<div>").html(data.event.venue.name).appendTo("#bandL1");
+      $("<div>").html(data.event.venue.location.street).appendTo("#bandL2");
+      $("<div>").html(data.event.venue.location.city).appendTo("#bandL3");
+      $("#showcase").css("background-image", "url(\\""+data.event.image[3]['#text']+"\")");
+      var htmlString = "<a href=\\"" + data.event.website + "\">Buy Tickets </a>";
+      $("<h3>").html(htmlString).appendTo("#event");
+      //events by head artist
+      var artistName = data.event.artists.headliner;
+      console.log(artistName);
+      var lastFMAPI = "http://ws.audioscrobbler.com/2.0/?method=artist.getEvents";
+      $.getJSON( lastFMAPI, {
+      artist: artistName,
+      api_key: "5e71d4525ae20c7db52688e610bea78f",
+      format: "json"
+      }).done(function( data ) {
+      console.log(data);
+      var ctr = 0;
+      for (var i in data.events.event) {
+      if(ctr < 11){
+      var htmlString = "<span id=\\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
+      $("<a href=\\"" + "/event.html?id=" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
+      $("#e"+data.events.event[i].id).css("background-image", "url(\\""+data.events.event[i].image[3]['#text']+"\")");
+      //console.log(data.events.event[i].title);
+      ctr++;
+      }else{
+      $("<span>").html("<span class=\\"grid more\">MORE</span>").appendTo("#upcomingShows");
+      return;
+      }
+      }
+      });
+      var lastFMAPI = "http://ws.audioscrobbler.com/2.0/?method=artist.getPastEvents";
+      $.getJSON( lastFMAPI, {
+      artist: artistName,
+      api_key: "5e71d4525ae20c7db52688e610bea78f",
+      format: "json"
+      }).done(function( data ) {
+      console.log(data);
+      ctr = 0;
+      for (var i in data.events.event) {
+      if(ctr < 11){
+      var htmlString = "<span id=\\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
+      $("<a href=\\"" + "/event.html?id=" + data.events.event[i].id + "\">").html(htmlString).appendTo("#pastShows");
+      $("#e"+data.events.event[i].id).css("background-image", "url(\\""+data.events.event[i].image[3]['#text']+"\")");
+      //console.log(data.events.event[i].title);
+      ctr++;
+      }else{
+      $("<span>").html("<span class=\\"grid more\">MORE</span>").appendTo("#pastShows");
+      return;
+      }
+      }
+      });
+      });
+      })();
