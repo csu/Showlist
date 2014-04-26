@@ -16,8 +16,8 @@
 			<span id="bottomblock"></span>
 			<span class="description">
 				<span class="subtitle">4.6 / 5</span>
-				<span class="bandtitle">Two Door Cinema Club</span>
-				<span class="text">The Neptune | LAST NIGHT 20:00</span>
+				<span id = "bandTitle" class="bandtitle"></span>
+				<span id = "bandText" class="text"></span>
 			</span>
 		</span>
 		<span class="title"><span id="topMenuButton" class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><a href="/">SHOWLIST</a></span>
@@ -159,7 +159,7 @@ function showPosition(position)
     }else{
       sessionStorage.currentCity = currentCity;
     }
-    updateLocation();
+    //updateLocation();
   });
 
   }
@@ -167,6 +167,9 @@ function showPosition(position)
   function updateLocation(){
   	$('#currentCity').html(sessionStorage.currentCity);
   	$('#upcomingShows').html("<span class=\"title\">UPCOMING SHOW</span>");
+  	$('#bandTitle').html("");
+  	$('#bandText').html("");
+  	
   	var lastFMAPI2 = "http://ws.audioscrobbler.com/2.0/?method=geo.getevents";
   $.getJSON( lastFMAPI2, {
  	location: sessionStorage.currentCity,
@@ -177,12 +180,21 @@ function showPosition(position)
     console.log(data);
 
     for (var i in data.events.event) {
-      var htmlString = "<span id=\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
 
-      $("<a href=\"" + "/event/" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
-      $("#e"+data.events.event[i].id).css("background-image", "url(\""+data.events.event[i].image[3]['#text']+"\")");
-      //console.log(data.events.event[i].title);
-    }
+    	if(i == 0){
+    		$("<div>").html(data.events.event[i].title).appendTo("#bandTitle");
+          	$("<div>").html(data.events.event[i].venue.name + " " + data.events.event[i].startDate).appendTo("#bandText");
+          	$("#showcase").css("background-image", "url(\""+data.events.event[i].image[3]['#text']+"\")");
+    	}else{
+
+
+	      var htmlString = "<span id=\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
+
+	      $("<a href=\"" + "/event/" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
+	      $("#e"+data.events.event[i].id).css("background-image", "url(\""+data.events.event[i].image[3]['#text']+"\")");
+	      //console.log(data.events.event[i].title);
+    		}
+		}
     $("<span>").html("<span class=\"grid more\">MORE</span>").appendTo("#upcomingShows");
     });
   }
