@@ -167,7 +167,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 app.get('/artist/:artist_id', function (req, res) {
   var rating = 0;
-  Artist.findOne({"artist_id": req.params.artist_id}.toLowerCase(), function(err, artist) {
+  Artist.findOne({"artist_id": req.params.artist_id.toLowerCase()}, function(err, artist) {
     // console.log(artist);
     rating = artist.cumulative_rating;
     // console.log(rating);
