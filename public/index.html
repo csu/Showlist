@@ -23,7 +23,7 @@
 		<span class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
 		<span id="rightnav">
       		<span class="nav"><span class="full"><img src="graphics/searchicon.png" style="vertical-align: bottom; margin-right: 10px;" />SEARCH</span><span class="narrow"><img src="graphics/searchicon.png" style="vertical-align: bottom;" /></span></span>
-			<span class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />RATE THIS SHOW</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
+			<span id =currentCity class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />SET LOCATION</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
 		</span>
 		<span id="topmenu">
 			<span class="row name">ANIKET HANDA</span>
@@ -120,6 +120,7 @@
 			<span class="grid more">MORE</span>
 		</div>
 	</div>
+	<div id="metros"></div>
 	<div id="footer"></div>
 </div>
 <script>
@@ -138,11 +139,32 @@ function showPosition(position)
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
 
-  var lastFMAPI2 = "http://ws.audioscrobbler.com/2.0/?method=geo.getevents";
-    console.log(longitude);
+  var currentCity;
+
+  var lastFMAPI = "http://maps.googleapis.com/maps/api/geocode/json";
+  $.getJSON( lastFMAPI, {
+    latlng: latitude+","+longitude,
+    sensor: true
+  }).done(function( data ) {
+    //console.log(data.results[0].address_components[3].long_name);
+    currentCity = data.results[0].address_components[3].long_name;
+    if (sessionStorage.currentCity){
+      console.log(sessionStorage.currentCity);
+
+    }else{
+      sessionStorage.currentCity = currentCity;
+    }
+    updateLocation();
+  });
+
+  }
+
+  function updateLocation(){
+  	$('#currentCity').html(sessionStorage.currentCity);
+  	$('#upcomingShows').html("");
+  	var lastFMAPI2 = "http://ws.audioscrobbler.com/2.0/?method=geo.getevents";
   $.getJSON( lastFMAPI2, {
-    long: longitude,
-    lat: latitude,
+ 	location: sessionStorage.currentCity,
     distance: 100,
     api_key: "5e71d4525ae20c7db52688e610bea78f",
     format: "json"
@@ -162,6 +184,25 @@ function showPosition(position)
 
   (function() {
   		getLocationAndDisplay();
+  		var lastFMAPI = "http://ws.audioscrobbler.com/2.0/?method=geo.getmetros";
+  $.getJSON( lastFMAPI, {
+    country: "United States",
+    api_key: "5e71d4525ae20c7db52688e610bea78f",
+    format: "json"
+  }).done(function( data ) {
+    console.log(data);
+
+    for (var i in data.metros.metro) {
+      var city = data.metros.metro[i].name;
+      $("<div id=\"city"+i+"\" style=\"cursor:pointer\">").html(data.metros.metro[i].name).appendTo("#metros").click(
+        function () {
+           sessionStorage.currentCity = this.innerHTML;
+           updateLocation();
+        });
+      //console.log(data.metros.metro[i].name);
+    }
+
+    });
 	})();
   </script>
 </body>
