@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>SHOWLIST</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<link href="theme/edit.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<form action="./api/reviews" method="post">
+<script>
+$(document).ready(function() {
+   var referrer =  document.referrer;
+})
+var event_id = (refferer.split( '/' ))[2];
+
+</script>
+<input value="" type="hidden" id="artist_id" value=""/>
+<script>document.getElementById('artist_id').value</script>
+<input value="" type="hidden" name="creator"/>
+<input value="" type="hidden" name="event_id" />
+<form action="./api/reviews" method="POST">
+	<label for="artist_id">Artist:</label>
+	<input id="artist_id">
+	<label for="creator">Creator:</label>
+	<input id="creator">
+	<label for="rating">Rating:</label>
+	<input id="rating">
+	<label for="review_body">Review:</label>
+	<input id="review_body">
+	<label for="event_id">Event:</label>
+	<input id="event_id">
+	<input type="submit" value="Submit">
+</form>
+<div id="wrapper">
+	<div id="top">
+		<span id="showcase">
+			<span class="grid label"><span class="description">
+				<span class="label">POSTING REVIEW</span>
+			</span></span>
+			<span class="grid"><span class="description">
+				<span class="label">Artist</span>
+				<span class="text">Hercules & Love Affair</span>
+			</span></span>
+			<span class="grid"><span class="description">
+				<span class="label">Location</span>
+				<span class="text">Neumos</span>
+			</span></span>
+			<span class="grid"><span class="description">
+				<span class="label">Time</span>
+				<span class="text">04/23 9pm</span>
+			</span></span>
+		</span>
+		<span class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
+		<span id="rightnav">
+      		<span class="nav"><span class="full">CANCEL</span><span class="narrow">X</span></span>
+      		<span class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />PUBLISH</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
+		</span>
+	</div>
+	<div id="content">
+		<!--div class="filter">
+			<span class="label">FILTER</span>
+			<span class="criteria">TEXT</span>
+			<span class="criteria">PHOTO</span>
+			<span class="criteria">VIDEO</span>
+			<span class="criteria">AUDIO</span>
+		</div-->
+		<div id="ratingview">
+			<span class="title">RATING</span>
+			<span class="rating">
+				<span class="point rated"></span>
+				<span class="point rated"></span>
+				<span class="point rated"></span>
+				<span class="point rated"></span>
+				<span class="point"></span>
+			</span>
+			<span class="number"><span class="score">4</span> / 5</span>
+			<input id="rating" name="rating" type="range" min="1" max=""/>
+		</div>
+		<div id="editview">
+			<span class="title">TEXT</span>
+			<textarea name="review_body"></textarea>
+			<input type="submit" value="Submit"/>
+		</div>
+	</div>
+	<div id="footer"></div>
+</div>
+</form>
+</body>
+</html>
