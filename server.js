@@ -77,7 +77,7 @@ var Review = app.resource = restful.model('review', mongoose.Schema({
   .methods(['post', 'put', 'delete']);
 
 Review.route('get', function(req, res, next) {
-  console.log('searching for artist_id: ' + req.query.artist_id);
+    //console.log('searching for artist_id: ' + req.query.artist_id);
     Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
         if (!err) {
             return res.json(reviews);
