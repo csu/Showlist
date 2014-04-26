@@ -75,8 +75,7 @@ var Review = app.resource = restful.model('review', mongoose.Schema({
     artist_id: { type: 'string', required: true},
     creator: { type: 'string', required: true},
     rating: { type: 'number', required: true},
-    review_body: { type: 'string', required: true},
-    event_id: 'string'
+    review_body: { type: 'string', required: true}
   }))
   // .methods(['get', { type: 'post', before: validateUser }, { type: 'put', before: validateUser }, 'delete']);
   .methods(['post', 'put', 'delete']);
@@ -92,20 +91,42 @@ Review.route('get', function(req, res, next) {
     })
 });
 
-Review.after('post', function(req, res, next) {
-  var avg = 0;
-  var num = 0;
-  Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
-        for (review in reviews) {
-          avg += review.rating;
-          num++;
-        }
+// Review.route('get', function(req, res, next) {
+//     //console.log('searching for artist_id: ' + req.query.artist_id);
+//     Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
+//         if (!err) {
+//             return res.json(reviews);
+//         } else {
+//             console.log(err);
+//         }
+//     })
+// });
+
+function updateRatingsPhase1(artist_id, rating) {
+  Artist.findOne({"artist_id": artist_id}, function(err, data) {
+      updateRatingsPhase2(artist_id, rating, data['number_of_ratings']);
     });
-  avg = avg/num;
-  console.log('avg: ' + avg);
-  console.log('num: ' + num);
-  Artist.update({ artist_id: req.query.artist_id }, { $set: { cumulative_rating: avg, number_of_ratings: num }});
-  next(); // Don't forget to call next!
+}
+
+function updateRatingsPhase2(artist_id, rating, num) {
+  Artist.findOne({"artist_id": artist_id}, function(err, data) {
+    calculateNewRating(artist_id, rating, num, data['cumulative_rating']);
+  });
+}
+
+function calculateNewRating(artist_id, rating, num, cum) {
+  cum = ((cum*num)+parseInt(rating))/(num+1);
+  num = num+1;
+  updateArtistRating(artist_id, num, cum);
+}
+
+function updateArtistRating(artist_id, num, cum) {
+  Artist.update({"artist_id": artist_id}, { number_of_ratings: num, cumulative_rating: cum });
+}
+
+Review.after('post', function(req, res, next) {
+  updateRatingsPhase1(req.body.artist_id, req.body.rating);
+  next();
 });
 
 Review.register(app, '/api/reviews');
@@ -128,48 +149,25 @@ app.get('/artist/:artist_id', function (req, res) {
     });
 });
 
-// app.get('/artist/:artist_id', function (req, res) {
-//   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
-//           // var photo_arr = {};
-//           // for (item in reviews) {
-//           //   User.findOne({"user_id": reviews[item].creator }, function (err2, creator) {
-//           //     console.log(creator.photo);
-//           //     photo_arr.push(creator.photo);
-//           //   });
-//           // }
-//           // //console.log(reviews);
-//           // console.log(photo_arr);
-//           res.render('item.jade',
-//             { "reviews" : reviews//,
-//             //"photos" : photo_arr
-//             }
-//           );
-//     });
-// });
+app.get('/event/:event_id', function (req, res) {
+  var rating = 0;
+  Artist.findOne({"event_id": req.params.artist_id}, function(err, artist) {
+    console.log(artist);
+    rating = artist.cumulative_rating;
+    console.log(rating);
+  });
+  Review.find({"event_id": req.params.event_id}, function(err, reviews) {
+          res.render('event.jade',
+            { "reviews" : reviews,
+              "artist_rating" : rating,
+              "event_id" : req.params.event_id }
+          );
+    });
+});
 
-// app.get('/artist/:artist_id', function (req, res) {
-//   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
-//         var creator_list = [];
-//         for (item in reviews) {
-//           creator_list.push(reviews[item].creator);
-//         }
-//         console.log(creator_list);
-//         User.find({"user_id": { $in: creator_list }}, function (err2, creators) {
-//           for (item in reviews) {
-//             reviews[item].photo = creators.
-//           }
-//           var photos_list = [];
-//           for (c in creators) {
-//             photos_list.push(creators[c].photo);
-//           }
-//           console.log(photos_list);
-//           res.render('item.jade',
-//             { "reviews" : reviews,
-//             "profile_pictures" : photos_list }
-//           );
-//         });
-//     });
-// });
+app.get('/', function (req, res) {
+  express.static('index.html');
+});
 
 // launch ======================================================================
 app.listen(port);
