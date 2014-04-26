@@ -4,8 +4,9 @@
 	<title>SHOWLIST</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-	<link href="css/landing.css" rel="stylesheet" type="text/css">
+	<link href="/css/landing.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic' rel='stylesheet' type='text/css'>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -21,7 +22,14 @@
 		</span>
 		<span class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
 		<span id="rightnav">
-			<span class="nav"><span class="full">RATE A SHOW</span><span class="narrow">RATE</span></span>
+      		<span class="nav"><span class="full"><img src="graphics/searchicon.png" style="vertical-align: bottom; margin-right: 10px;" />SEARCH</span><span class="narrow"><img src="graphics/searchicon.png" style="vertical-align: bottom;" /></span></span>
+			<span class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />RATE THIS SHOW</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
+		</span>
+		<span id="topmenu">
+			<span class="row name">ANIKET HANDA</span>
+			<span class="row option">My Showlist</span>
+			<span class="row option">Account Setting</span>
+			<span class="row option">Log Out</span>
 		</span>
 	</div>
 	<div id="content">
@@ -56,53 +64,14 @@
 			</span>
 			<span class="grid more">MORE</span>
 		</div>
-		<div class="gridview">
+
+		<div id="upcomingShows" class="gridview">
 			<span class="title">UPCOMING SHOW</span>
 			<!--span class="grid qua">1</span-->
-			<span class="grid duo">
-				<span class="description">
-					<span class="subtitle">TONIGHT 20:00</span>
-					<span class="bandtitle">Two Door Cinema Club</span>
-					<span class="text">The Neptune | Seattle, WA</span>
-				</span>
-			</span>
-			<span class="grid">
-				<span class="description">
-					<span class="subtitle">TONIGHT 20:00</span>
-					<span class="bandtitle">Two Door Cinema Club</span>
-					<span class="text">The Neptune | Seattle, WA</span>
-				</span>
-			</span>
-			<span class="grid">
-				<span class="description">
-					<span class="subtitle">TONIGHT 20:00</span>
-					<span class="bandtitle">Two Door Cinema Club</span>
-					<span class="text">The Neptune | Seattle, WA</span>
-				</span>
-			</span>
-			<span class="grid">
-				<span class="description">
-					<span class="subtitle">TOMORROW NIGHT 20:00</span>
-					<span class="bandtitle">Two Door Cinema Club</span>
-					<span class="text">The Neptune | Seattle, WA</span>
-				</span>
-			</span>
-			<span class="grid">
-				<span class="description">
-					<span class="subtitle">TOMORROW NIGHT 20:00</span>
-					<span class="bandtitle">Two Door Cinema Club</span>
-					<span class="text">The Neptune | Seattle, WA</span>
-				</span>
-			</span>
-			<span class="grid">
-				<span class="description">
-					<span class="subtitle">TOMORROW NIGHT 20:00</span>
-					<span class="bandtitle">Two Door Cinema Club</span>
-					<span class="text">The Neptune | Seattle, WA</span>
-				</span>
-			</span>
-			<span class="grid more">MORE</span>
+			
+			
 		</div>
+
 		<div class="gridview">
 			<span class="title">PRAISED SHOWS</span>
 			<!--span class="grid qua">1</span-->
@@ -153,5 +122,47 @@
 	</div>
 	<div id="footer"></div>
 </div>
+<script>
+var x=document.getElementById("geo");
+
+function getLocationAndDisplay()
+  {
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  else{x.innerHTML = "Geolocation is not supported by this browser.";}
+  }
+function showPosition(position)
+  {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+
+  var lastFMAPI2 = "http://ws.audioscrobbler.com/2.0/?method=geo.getevents";
+    console.log(longitude);
+  $.getJSON( lastFMAPI2, {
+    long: longitude,
+    lat: latitude,
+    distance: 100,
+    api_key: "5e71d4525ae20c7db52688e610bea78f",
+    format: "json"
+  }).done(function( data ) {
+    console.log(data);
+
+    for (var i in data.events.event) {
+      var htmlString = "<span id=\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
+
+      $("<a href=\"" + "/event.html?id=" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
+      $("#e"+data.events.event[i].id).css("background-image", "url(\""+data.events.event[i].image[3]['#text']+"\")");
+      //console.log(data.events.event[i].title);
+    }
+    $("<span>").html("<span class=\"grid more\">MORE</span>").appendTo("#upcomingShows");
+    });
+  }
+
+  (function() {
+  		getLocationAndDisplay();
+	})();
+  </script>
 </body>
 </html>

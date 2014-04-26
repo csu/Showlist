@@ -4,7 +4,7 @@
 	<title>SHOWLIST</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-	<link href="theme/landing.css" rel="stylesheet" type="text/css">
+	<link href="css/landing.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic' rel='stylesheet' type='text/css'>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
@@ -22,7 +22,14 @@
 		</span>
 		<span class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
 		<span id="rightnav">
-			<span class="nav"><span class="full">RATE A SHOW</span><span class="narrow">RATE</span></span>
+      		<span class="nav"><span class="full"><img src="graphics/searchicon.png" style="vertical-align: bottom; margin-right: 10px;" />SEARCH</span><span class="narrow"><img src="graphics/searchicon.png" style="vertical-align: bottom;" /></span></span>
+			<span class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />RATE THIS SHOW</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
+		</span>
+		<span id="topmenu">
+			<span class="row name">ANIKET HANDA</span>
+			<span class="row option">My Showlist</span>
+			<span class="row option">Account Setting</span>
+			<span class="row option">Log Out</span>
 		</span>
 	</div>
 	<div id="content">
@@ -145,7 +152,7 @@ function showPosition(position)
     for (var i in data.events.event) {
       var htmlString = "<span id=\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
 
-      $("<a href=\"" + "/event.html?id=" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
+      $("<a href=\"" + "/event/" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
       $("#e"+data.events.event[i].id).css("background-image", "url(\""+data.events.event[i].image[3]['#text']+"\")");
       //console.log(data.events.event[i].title);
     }
