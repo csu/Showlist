@@ -91,7 +91,6 @@ Review.route('get', function(req, res, next) {
     })
 });
 
-<<<<<<< HEAD
 // Review.route('get', function(req, res, next) {
 //     //console.log('searching for artist_id: ' + req.query.artist_id);
 //     Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
@@ -108,16 +107,6 @@ function updateRatingsPhase1(artist_id, rating) {
       // console.log('data: ' + data);
       // console.log('num: ' + data['number_of_ratings']);
       updateRatingsPhase2(artist_id, rating, data['number_of_ratings']);
-=======
-Review.after('post', function(req, res, next) {
-  var avg = 0;
-  var num = 0;
-  Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
-        for (review in reviews) {
-          avg += review.rating;
-          num++;
-        }
->>>>>>> e6810cd349087090e290c932606ea0e8d119a684
     });
 }
 
