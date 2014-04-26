@@ -236,6 +236,10 @@ app.get('/', function (req, res) {
   express.static('index.html');
 });
 
+app.get('/shitty-review/', function (req, res) {
+  express.static('review-form.html');
+});
+
 app.get('/auth/failed', function (req, res) {
   express.static('failed_auth.html');
 });
