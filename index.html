@@ -152,7 +152,7 @@ function showPosition(position)
     for (var i in data.events.event) {
       var htmlString = "<span id=\""+"e"+data.events.event[i].id+"\" class=\"grid\"><span class=\"description\"><span class=\"subtitle\">"+data.events.event[i].startDate+"</span><span class=\"bandtitle\">"+data.events.event[i].title+"</span><span class=\"text\">"+data.events.event[i].venue.name+"</span></span></span>";
 
-      $("<a href=\"" + "/event.html?id=" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
+      $("<a href=\"" + "/event/" + data.events.event[i].id + "\">").html(htmlString).appendTo("#upcomingShows");
       $("#e"+data.events.event[i].id).css("background-image", "url(\""+data.events.event[i].image[3]['#text']+"\")");
       //console.log(data.events.event[i].title);
     }
