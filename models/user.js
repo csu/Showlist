@@ -11,6 +11,4 @@ var User = restful.model('user', mongoose.Schema({
   }))
   .methods(['get', 'post', 'put', 'delete']);
 
-User.register(app, '/api/user');
-
 module.exports = mongoose.model('User', userSchema);
