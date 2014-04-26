@@ -1,0 +1,66 @@
+html
+  head
+    title SHOWLIST
+    meta(http-equiv='content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0')
+    link(href='theme/edit.css', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,700italic,400italic,100italic', rel='stylesheet', type='text/css')
+  body
+    #wrapper
+      #top
+        span#showcase
+          span.grid.label
+            span.description
+              span.label POSTING REVIEW
+          span.grid
+            span.description
+              span.label Artist
+              span.text Hercules & Love Affair
+          span.grid
+            span.description
+              span.label Location
+              span.text Neumos
+          span.grid
+            span.description
+              span.label Time
+              span.text 04/23 9pm
+        span.title
+          span.menu
+            span.seg
+            span.seg
+            span.seg
+          | SHOWLIST
+        span#rightnav
+          span.nav
+            span.full CANCEL
+            span.narrow X
+          span.nav
+            span.full
+              img(src='graphics/editicon.png', style='vertical-align: bottom; margin-right: 10px;')
+              | PUBLISH
+            span.narrow
+              img(src='graphics/editicon.png', style='vertical-align: bottom;')
+      #content
+        //
+          div class="filter">
+          			<span class="label">FILTER</span>
+          			<span class="criteria">TEXT</span>
+          			<span class="criteria">PHOTO</span>
+          			<span class="criteria">VIDEO</span>
+          			<span class="criteria">AUDIO</span>
+          		</div
+        #ratingview
+          span.title RATING
+          span.rating
+            span.point.rated
+            span.point.rated
+            span.point.rated
+            span.point.rated
+            span.point
+          span.number
+            span.score 4
+            | / 5
+        #editview
+          span.title TEXT
+          textarea
+      #footer
