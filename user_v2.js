@@ -6,4 +6,4 @@
         email: { type: String, required: true},
         photo: { type: String},
         facebook_token: { type: String, required: true}
-      }))
+      })
