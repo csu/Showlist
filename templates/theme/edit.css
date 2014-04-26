@@ -1,0 +1,304 @@
+html{
+	font-size: 0;
+	font-family: "roboto", sans-serif;
+	font-weight: 400;
+}
+
+
+#wrapper{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -50%;
+	width: 100%;
+}
+
+#top{
+	width: 100%;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	line-height: 30px;
+	height: 200px;
+}
+
+#top .title{
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	font-size: 30px;
+	line-height: 40px;
+	font-weight: 100;
+	text-align: left;
+	font-style: italic;
+}
+
+#top .title .menu{
+	width: 22px;
+	height: 22px;
+	padding: 8px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	margin-right: 20px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#top .title .menu .seg{
+	display: block;
+	border-bottom: 2px solid #fff;
+	width: 100%;
+	height: 4px;
+}
+
+#top #rightnav{
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	display: inline-block;
+	text-align: right;
+}
+
+#top #rightnav .nav{
+	padding: 10px;
+	line-height: 18px;
+	border: 1px solid #fff;
+	cursor: pointer;
+	vertical-align: bottom;
+	font-size: 14px;
+	margin-left: 10px;
+}
+
+#top #rightnav .nav .full{
+	vertical-align: bottom;
+	display: inline;
+}
+
+#top #rightnav .nav .narrow{
+	vertical-align: bottom;
+	display: none;
+}
+
+#top #showcase{
+	display: inline-block;
+	margin-left: 10%;
+	width: 80%;
+	height: 110px;
+	margin-top: 90px;
+	text-align: center;
+}
+
+#top #showcase .grid{
+	width: 25%;
+	height: 110px;
+	background-color: #333;
+	color: #fff;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#top #showcase .grid .description{
+	text-align: left;
+	display: block;
+	margin-top: 20px;
+	padding: 0px 20px 20px 0;
+	border-top: 2px solid #fff;
+	cursor: pointer;
+}
+
+#top #showcase .grid.label .description{
+	cursor: auto;
+}
+
+#top #showcase .grid .description:hover{
+	border-top: 2px solid #666;
+}
+
+#top #showcase .grid.label .description:hover{
+	border-top: 2px solid #fff;
+}
+
+#top #showcase .grid .description .label{
+	padding-top: 10px;
+	font-size: 18px;
+	font-style: italic;
+	font-weight: 100;
+	display: block;
+}
+
+#top #showcase .grid.label .description .label{
+	font-size: 24px;
+	font-weight: 400;
+	font-style: normal;
+}
+
+#top #showcase .grid .description .text{
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: 400;
+	text-align: right;
+	display: block;
+}
+
+#content{
+	width: 100%;
+	padding: 0 0 20px;
+	color: #000;
+}
+
+#content .filter{
+	width: 80%;
+	padding: 20px 10% 0;
+	text-align: right;
+	font-style: italic;
+}
+
+#content .filter .label{
+	display: inline-block;
+	font-size: 14px;
+	padding-left: 20px;
+	color: #333;
+	font-weight: 700;
+}
+
+#content .filter .criteria{
+	display: inline-block;
+	cursor: pointer;
+	font-size: 14px;
+	padding-left: 20px;
+	color: #666;
+}
+
+#content #uploadview{
+	width: 20%;
+	padding: 20px 0 0 10%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#content #uploadview .title{
+	width: 100%;
+	display: inline-block;
+	font-size: 18px;
+	color: #333;
+	font-style: italic;
+	padding-bottom: 10px;
+}
+
+#content #uploadview .option{
+	display: block;
+	border-bottom: 1px solid #aaa;
+	font-size: 14px;
+	color: #333;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#content #editview{
+	width: 60%;
+	padding: 20px 10% 0 0;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#content #editview .title{
+	width: 100%;
+	display: inline-block;
+	font-size: 18px;
+	color: #333;
+	font-style: italic;
+	padding-bottom: 10px;
+}
+
+#content #editview textarea{
+	width: 100%; 
+	height: 300px; 
+	border: 1px solid #aaa;
+}
+
+#footer{
+	width: 80%;
+	padding: 20px 10% 100px;
+	color: #fff;
+	font-size: 12px;
+}
+
+
+@media all and (max-width: 959px) and (min-width: 640px) {
+
+	#content .gridlistview .gridlist{
+		width: 100%;
+	}
+	#content .gridview .grid{
+		width: 50%;
+	}
+	#content .gridview .grid.duo{
+		width: 100%;
+	}
+}
+
+@media all and (max-width: 799px) {
+
+	#top{
+		height: 310px;
+	}
+
+	#top #showcase{
+		height: 220px;
+	}
+
+	#top #showcase .grid{
+		width: 50%;
+	}
+
+	#top #rightnav .nav .narrow{
+		vertical-align: bottom;
+		display: inline;
+	}
+
+	#top #rightnav .nav .full{
+		vertical-align: bottom;
+		display: none;
+	}
+
+	#content #editview{
+		width: 80%;
+		padding: 20px 10% 0;
+	}
+
+	#content #uploadview{
+		width: 80%;
+		padding: 20px 10% 0;
+	}
+}
+
+@media all and (max-width: 639px) {
+
+	#content .gridlistview .gridlist{
+		width: 100%;
+	}
+	#content .gridview .grid{
+		width: 100%;
+	}
+	#content .gridview .grid.duo{
+		width: 100%;
+	}
+}
+
+@media all and (min-width: 1600px) {
+
+
+	body{
+		background-color: #333;
+	}
+
+	#wrapper {
+		width: 1600px;
+		margin-left: -800px;
+	}
+
+	#content {
+		background-color: #fff;
+	}
+
+}
