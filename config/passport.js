@@ -2,7 +2,7 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model
-var User       = require('../app/models/user');
+var User = require('../app/models/user');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -17,12 +17,12 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.user_id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        User.findOne({user_id: id}, function(err, user) {
             done(err, user);
         });
     });
@@ -85,9 +85,9 @@ module.exports = function(passport) {
 
             } else {
                 // user already exists and is logged in, we have to link accounts
-                var user            = req.user; // pull the user out of the session
+                var user = req.user; // pull the user out of the session
 
-                user.user_id    = profile.id;
+                user.user_id = profile.id;
                 user.facebook_token = token;
                 user.name  = profile.name.givenName + ' ' + profile.name.familyName;
                 user.email = (profile.emails[0].value || '').toLowerCase();
