@@ -12,6 +12,7 @@
     "passport-google-oauth": "~0.1.5",
     "connect-flash": "~0.1.1",
     "bcrypt-nodejs": "latest",
-    "node-restful": "^0.1.16"
+    "node-restful": "^0.1.16",
+    "request": "^2.34.0"
   }
 }
