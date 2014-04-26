@@ -149,6 +149,22 @@ app.get('/artist/:artist_id', function (req, res) {
     });
 });
 
+app.get('/event/:event_id', function (req, res) {
+  var rating = 0;
+  Artist.findOne({"event_id": req.params.artist_id}, function(err, artist) {
+    console.log(artist);
+    rating = artist.cumulative_rating;
+    console.log(rating);
+  });
+  Review.find({"event_id": req.params.event_id}, function(err, reviews) {
+          res.render('event.jade',
+            { "reviews" : reviews,
+              "artist_rating" : rating,
+              "event_id" : req.params.event_id }
+          );
+    });
+});
+
 app.get('/', function (req, res) {
   express.static('index.html');
 });
