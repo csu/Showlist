@@ -169,6 +169,10 @@ app.get('/', function (req, res) {
   express.static('index.html');
 });
 
+app.get('/auth/failed', function (req, res) {
+  express.static('failed_auth.html');
+});
+
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
