@@ -1,4 +1,5 @@
 var express = require('express'),
+    path = require('path'),
     restful = require('node-restful'),
     mongoose = restful.mongoose;
 var app      = express();
@@ -18,6 +19,8 @@ mongoose.connect(configDB.url); // connect to our database
 require('./config/passport')(passport); // pass passport for configuration
 
 app.configure(function() {
+
+  app.use(express.static(path.join(__dirname, 'public')));
 
 	// express
 	app.use(express.logger('dev')); // log every request to the console
