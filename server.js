@@ -33,13 +33,6 @@ app.configure(function() {
 
 });
 
-// API =========================================================================
-// var models = require('./models/index');
-// models.forEach(function(model) {
-//   console.log("Register " + model.resourceName);
-//   model.register(app, '/' + model.resourceName);
-// });
-
 var Artist = app.resource = restful.model('artist', mongoose.Schema({
     artist_id: { type: 'string', unique: true, required: true },
     cumulative_rating: { type: 'number', required: true, default: 0 },
