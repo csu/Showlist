@@ -34,14 +34,31 @@ app.configure(function() {
 });
 
 // API =========================================================================
+// var models = require('./models/index');
+// models.forEach(function(model) {
+//   console.log("Register " + model.resourceName);
+//   model.register(app, '/' + model.resourceName);
+// });
+
 var Artist = app.resource = restful.model('artist', mongoose.Schema({
-    artist_id: { type: 'string', unique: true, required: true},
-    cumulative_rating: { type: 'number', required: true},
-    number_of_ratings: { type: 'number', required: true}
+    artist_id: { type: 'string', unique: true, required: true },
+    cumulative_rating: { type: 'number', required: true },
+    number_of_ratings: { type: 'number', required: true }
   }))
   .methods(['get', 'post', 'put', 'delete']);
 
 Artist.register(app, '/artists');
+
+var User = app.resource = restful.model('user', mongoose.Schema({
+    provider: { type: 'string', required: true},
+    user_id: { type: 'string', unique: true, required: true},
+    full_name: { type: 'string', required: true},
+    email: { type: 'string', required: true},
+    photo: { type: 'string', required: true}
+  }))
+  .methods(['get', 'post', 'put', 'delete']);
+
+User.register(app, '/user');
 
 var validateUser = function(req, res, next) {
   if (!req.body.creator) {
@@ -52,17 +69,6 @@ var validateUser = function(req, res, next) {
     return next();
   });
 }
-
-var User = app.resource = restful.model('review', mongoose.Schema({
-    provider: { type: 'string', required: true},
-    user_id: { type: 'string', unique: true, required: true},
-    full_name: { type: 'string', required: true},
-    email: { type: 'string', required: true},
-    photo: { type: 'string', required: true},
-  }))
-  .methods(['get', 'post', 'put', 'delete']);
-
-User.register(app, '/user');
 
 var Review = app.resource = restful.model('review', mongoose.Schema({
     artist_id: { type: 'ObjectId', ref: 'artist', require: true},
