@@ -15,13 +15,13 @@ module.exports = function(app, passport) {
 	// facebook -------------------------------
 
 		// send to facebook to do the authentication
-		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+		app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email', 'user_likes'] }));
 
 		// handle the callback after facebook has authenticated the user
 		app.get('/auth/facebook/callback',
 			passport.authenticate('facebook', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
+				successRedirect : '/',
+				failureRedirect : '/auth/failed'
 			}));
 
 // =============================================================================
@@ -29,27 +29,27 @@ module.exports = function(app, passport) {
 // =============================================================================
 
 
-	// facebook -------------------------------
+	// // facebook -------------------------------
 
-		// send to facebook to do the authentication
-		app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
+	// 	// send to facebook to do the authentication
+	// 	app.get('/connect/facebook', passport.authorize('facebook', { scope : ['email', 'user_likes'] }));
 
-		// handle the callback after facebook has authorized the user
-		app.get('/connect/facebook/callback',
-			passport.authorize('facebook', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
+	// 	// handle the callback after facebook has authorized the user
+	// 	app.get('/connect/facebook/callback',
+	// 		passport.authorize('facebook', {
+	// 			successRedirect : '/profile',
+	// 			failureRedirect : '/'
+	// 		}));
 
 
-	// facebook -------------------------------
-	app.get('/unlink/facebook', function(req, res) {
-		var user            = req.user;
-		user.facebook.token = undefined;
-		user.save(function(err) {
-			res.redirect('/profile');
-		});
-	});
+	// // facebook -------------------------------
+	// app.get('/unlink/facebook', function(req, res) {
+	// 	var user            = req.user;
+	// 	user.facebook.token = undefined;
+	// 	user.save(function(err) {
+	// 		res.redirect('/profile');
+	// 	});
+	// });
 
 };
 
