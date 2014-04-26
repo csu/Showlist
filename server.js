@@ -149,6 +149,10 @@ app.get('/artist/:artist_id', function (req, res) {
     });
 });
 
+app.get('/', function (req, res) {
+  express.static(path.join(__dirname, 'index.html'));
+});
+
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
