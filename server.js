@@ -2,8 +2,9 @@ var express = require('express'),
     path = require('path'),
     restful = require('node-restful'),
     mongoose = restful.mongoose;
-var facebook = require('./facebook.js');
-var https = require('https');
+// var facebook = require('./facebook.js');
+// var https = require('https');
+var request = require('request');
 var app      = express();
 var port     = process.env.PORT || 3000;
 var mongoose = require('mongoose');
@@ -166,12 +167,12 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 app.get('/artist/:artist_id', function (req, res) {
   var rating = 0;
-  Artist.findOne({"artist_id": req.params.artist_id}, function(err, artist) {
+  Artist.findOne({"artist_id": req.params.artist_id}.toLowerCase(), function(err, artist) {
     // console.log(artist);
     rating = artist.cumulative_rating;
     // console.log(rating);
   });
-  Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
+  Review.find({"artist_id": req.params.artist_id.toLowerCase()}, function(err, reviews) {
           res.render('item.jade',
             { "reviews" : reviews,
               "artist_rating" : rating }
@@ -199,44 +200,35 @@ app.get('/event/:event_id', function (req, res) {
     });
 });
 
-function getAuthTokenForUser(uid) {
+function getAuthTokenForUser(res, uid) {
   User.findOne({ user_id: uid }, function(err, result) {
-    return result['facebook_token'];
+    // console.log(result);
+    getUserLikes(res, result['facebook_token']);
   })
 }
 
-function getUserLikes(token) {
-  var token = token;
-  var options = {
-    hostname: 'graph.facebook.com',
-    port: 443,
-    path: '/me/likes?access_token=' + token,
-    method: 'GET'
-  };
-
-  var req = https.request(options, function(res) {
-    console.log("statusCode: ", res.statusCode);
-    console.log("headers: ", res.headers);
-
-    res.on('data', function(d) {
-      process.stdout.write(d);
-    });
-  });
-  req.end();
-
-  req.on('error', function(e) {
-    console.error(e);
+function getUserLikes(res, token) {
+  var path = 'https://graph.facebook.com/me/likes?limit=1000&access_token=' + token;
+  // console.log(path);
+  request(path, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      // console.log(body);
+      var body = JSON.parse(body);
+      var artist_names = [];
+      for (item in body["data"]) {
+        console.log(item);
+        if (item["category"].equals("Musician/band")) {
+          artist_names.push(item["name"]);
+        }
+      }
+      res.json(artist_names);
+    }
   });
 }
 
 app.get('/api/likes', function (req, res) {
-
-
-  // facebook.getFbData('token', '/me/likes', function(data){
-  //   console.log(data);
-  // });
-
-  res.send('hi');
+  getAuthTokenForUser(res, req.session['passport']['user']);
+  // res.send();
 });
 
 app.get('/', function (req, res) {
