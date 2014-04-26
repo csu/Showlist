@@ -4,7 +4,6 @@ html{
 	font-weight: 400;
 }
 
-
 #wrapper{
 	position: absolute;
 	top: 0;
@@ -150,6 +149,7 @@ html{
 	width: 190px;
 	padding: 0 30px;
 	height: auto;
+	display: none;
 }
 
 #top #topmenu .row{
