@@ -75,6 +75,7 @@ var Review = app.resource = restful.model('review', mongoose.Schema({
     // artist_id: { type: 'ObjectId', ref: 'artist', require: true},
     // creator: { type: 'ObjectId', ref: 'user', require: true},
     artist_id: { type: 'string', required: true},
+    event_id: { type: 'string', required: true},
     creator: { type: 'string', required: true},
     rating: { type: 'number', required: true},
     review_body: { type: 'string', required: true}
@@ -84,7 +85,7 @@ var Review = app.resource = restful.model('review', mongoose.Schema({
 
 Review.route('get', function(req, res, next) {
     //console.log('searching for artist_id: ' + req.query.artist_id);
-    Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
+    Review.find({"event_id": req.query.event_id}, function(err, reviews) {
         if (!err) {
             return res.json(reviews);
         } else {
@@ -144,9 +145,9 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 app.get('/artist/:artist_id', function (req, res) {
   var rating = 0;
   Artist.findOne({"artist_id": req.params.artist_id}, function(err, artist) {
-    console.log(artist);
+    // console.log(artist);
     rating = artist.cumulative_rating;
-    console.log(rating);
+    // console.log(rating);
   });
   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
           res.render('item.jade',
@@ -159,11 +160,12 @@ app.get('/artist/:artist_id', function (req, res) {
 app.get('/event/:event_id', function (req, res) {
   var rating = 0;
   Artist.findOne({"event_id": req.params.artist_id}, function(err, artist) {
-    console.log(artist);
+    // console.log(artist);
     rating = artist.cumulative_rating;
-    console.log(rating);
+    // console.log(rating);
   });
   Review.find({"event_id": req.params.event_id}, function(err, reviews) {
+    console.log(reviews);
           res.render('event.jade',
             { "reviews" : reviews,
               "artist_rating" : rating,
@@ -172,8 +174,14 @@ app.get('/event/:event_id', function (req, res) {
     });
 });
 
+function getAuthTokenForUser(uid) {
+  User.findOne({ user_id: uid }, function(err, result) {
+    console.log(result['facebook_token']);
+  })
+}
+
 app.get('/getMusicLikes', function (req, res) {
-  console.log(req.session['passport']);
+  getAuthTokenForUser(req.session['passport']['user']);
   res.send('hi');
 });
 
