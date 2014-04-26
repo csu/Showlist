@@ -39,7 +39,7 @@ module.exports = function(passport) {
 
     },
     function(req, token, refreshToken, profile, done) {
-
+        console.log(profile)
         // asynchronous
         process.nextTick(function() {
 
