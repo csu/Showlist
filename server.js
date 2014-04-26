@@ -42,51 +42,23 @@ app.configure(function() {
 
 var Artist = app.resource = restful.model('artist', mongoose.Schema({
     artist_id: { type: 'string', unique: true, required: true },
-    cumulative_rating: { type: 'number', required: true },
-    number_of_ratings: { type: 'number', required: true }
+    cumulative_rating: { type: 'number', required: true, default: 0 },
+    number_of_ratings: { type: 'number', required: true, default: 0 }
   }))
   .methods(['get', 'post', 'put', 'delete']);
 
-Artist.register(app, '/artists');
+Artist.register(app, '/api/artists');
 
 var User = app.resource = restful.model('user', mongoose.Schema({
-    provider: {
-        type: String,
-        required: true,
-        lowercase: true,
-        trim: true 
-    },
-    id: {
-        type: String,
-        required:true,
-        unique:true
-    },
-    displayName: {
-        type: String,
-        required:true
-    },
-    familyName: {
-        type: String,
-        required:true
-    },
-    givenName:{
-        type: String,
-        required:true
-    }
-    middleName:{
-        type: String
-    }
-    emails:{
-        value: String
-    },
-    photos:{
-        value: String
-    }
-
-}))
+    provider: { type: 'string', required: true},
+    user_id: { type: 'string', unique: true, required: true},
+    full_name: { type: 'string', required: true},
+    email: { type: 'string', required: true},
+    photo: { type: 'string', required: true}
+  }))
   .methods(['get', 'post', 'put', 'delete']);
 
-User.register(app, '/user');
+User.register(app, '/api/user');
 
 var validateUser = function(req, res, next) {
   if (!req.body.creator) {
@@ -101,14 +73,15 @@ var validateUser = function(req, res, next) {
 var Review = app.resource = restful.model('review', mongoose.Schema({
     artist_id: { type: 'ObjectId', ref: 'artist', require: true},
     creator: { type: 'ObjectId', ref: 'user', require: true},
-    number_of_ratings: { type: 'numer', required: true},
+    number_of_ratings: { type: 'number', required: true},
     rating: { type: 'number', required: true},
     review_body: { type: 'string', required: true},
     event_id: 'string'
   }))
-  .methods(['get', { type: 'post', before: validateUser }, { type: 'put', before: validateUser }, 'delete']);
+  // .methods(['get', { type: 'post', before: validateUser }, { type: 'put', before: validateUser }, 'delete']);
+  .methods(['get', 'post', 'put', 'delete']);
 
-Review.register(app, '/reviews');
+Review.register(app, '/api/reviews');
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
