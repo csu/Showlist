@@ -144,6 +144,7 @@ html{
 	width: 190px;
 	padding: 0 30px;
 	height: auto;
+	display: none;
 }
 
 #top #topmenu .row{
