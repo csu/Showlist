@@ -150,7 +150,7 @@ app.get('/artist/:artist_id', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  express.static(path.join(__dirname, 'index.html'));
+  express.static('index.html');
 });
 
 // launch ======================================================================
