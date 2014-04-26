@@ -17,15 +17,23 @@ html
           span#bandL2.text
           span#bandL3.text
         span.title
-          span.menu
+          span#topMenuButton.menu
             span.seg
             span.seg
             span.seg
-          | SHOWLIST
+          a(href='/') SHOWLIST
         span#rightnav
           span.nav
-            span.full RATE THIS SHOW
-            span.narrow RATE
+            span.full
+              img(src='/graphics/searchicon.png', style='vertical-align: bottom; margin-right: 10px;')
+            | RATE THIS SHOW
+            span.narrow
+              img(src='/graphics/searchicon.png', style='vertical-align: bottom; margin-right: 10px;')
+        span#topmenu
+          span.row.name ANIKET HANDA
+          span.row.option My Showlist
+          span.row.option Account Setting
+          span.row.option Log Out
       #content
         .filter
           span.label FILTER
@@ -43,6 +51,9 @@ html
       #footer
     script(type='text/javascript').
       (function() {
+        $( "#topMenuButton" ).click(function() {
+          $( "#topmenu" ).toggle();
+        });
         var eventId = #{event_id};
         console.log(eventId);
         var lastFMAPI = "http://ws.audioscrobbler.com/2.0/?method=event.getinfo";

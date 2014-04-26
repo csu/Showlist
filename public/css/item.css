@@ -4,6 +4,9 @@ html{
 	font-weight: 400;
 }
 
+a{
+	text-decoration: none;
+}
 
 #wrapper{
 	position: absolute;
@@ -44,6 +47,10 @@ html{
 	font-style: italic;
 }
 
+#top .title a{
+	color: #fff;
+}
+
 #top .title .menu{
 	width: 22px;
 	height: 22px;
@@ -78,6 +85,7 @@ html{
 	vertical-align: bottom;
 	font-size: 14px;
 	margin-left: 10px;
+	display: inline-block;
 }
 
 #top #rightnav .nav .full{
@@ -144,6 +152,7 @@ html{
 	width: 190px;
 	padding: 0 30px;
 	height: auto;
+	display: none;
 }
 
 #top #topmenu .row{
