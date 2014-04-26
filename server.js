@@ -2,6 +2,7 @@ var express = require('express'),
     path = require('path'),
     restful = require('node-restful'),
     mongoose = restful.mongoose;
+var facebook = require('./facebook.js');
 var app      = express();
 var port     = process.env.PORT || 3000;
 var mongoose = require('mongoose');
@@ -27,6 +28,7 @@ app.configure(function() {
 	// express
 	app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
+  app.use(express.cookieSession({ secret: 'RcWudEyiRGh3VQMp6Yzk' }));
 	app.use(express.bodyParser()); // get information from html forms
 	// app.set('view engine', 'jade'); // set up ejs for templating
 
@@ -163,6 +165,11 @@ app.get('/event/:event_id', function (req, res) {
               "event_id" : req.params.event_id }
           );
     });
+});
+
+app.get('/getMusicLikes', function (req, res) {
+  console.log(req.session);
+  res.send('hi');
 });
 
 app.get('/', function (req, res) {
