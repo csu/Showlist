@@ -193,7 +193,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/shit', function (req, res) {
-  express.static('review-form.html');
+  express.static('review_form.html');
+});
+
+app.get('/edit1', function (req, res) {
+  express.static('edit1.html');
+});
+
+app.get('/edit2', function (req, res) {
+  express.static('edit2.html');
 });
 
 app.get('/auth/failed', function (req, res) {
