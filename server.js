@@ -92,29 +92,60 @@ Review.route('get', function(req, res, next) {
     })
 });
 
+Review.after('post', function(req, res, next) {
+  var avg = 0;
+  var num = 0;
+  Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
+        for (review in reviews) {
+          avg += review.rating;
+          num++;
+        }
+    });
+  avg = avg/num;
+  console.log('avg: ' + avg);
+  console.log('num: ' + num);
+  Artist.update({ artist_id: req.query.artist_id }, { $set: { cumulative_rating: avg, number_of_ratings: num }});
+  next(); // Don't forget to call next!
+});
+
 Review.register(app, '/api/reviews');
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 app.get('/artist/:artist_id', function (req, res) {
+  var rating = 0;
+  Artist.findOne({"artist_id": req.params.artist_id}, function(err, artist) {
+    console.log(artist);
+    rating = artist.cumulative_rating;
+    console.log(rating);
+  });
   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
-          // var photo_arr = {};
-          // for (item in reviews) {
-          //   User.findOne({"user_id": reviews[item].creator }, function (err2, creator) {
-          //     console.log(creator.photo);
-          //     photo_arr.push(creator.photo);
-          //   });
-          // }
-          // //console.log(reviews);
-          // console.log(photo_arr);
           res.render('item.jade',
-            { "reviews" : reviews//,
-            //"photos" : photo_arr
-            }
+            { "reviews" : reviews,
+              "artist_rating" : rating }
           );
     });
 });
+
+// app.get('/artist/:artist_id', function (req, res) {
+//   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
+//           // var photo_arr = {};
+//           // for (item in reviews) {
+//           //   User.findOne({"user_id": reviews[item].creator }, function (err2, creator) {
+//           //     console.log(creator.photo);
+//           //     photo_arr.push(creator.photo);
+//           //   });
+//           // }
+//           // //console.log(reviews);
+//           // console.log(photo_arr);
+//           res.render('item.jade',
+//             { "reviews" : reviews//,
+//             //"photos" : photo_arr
+//             }
+//           );
+//     });
+// });
 
 // app.get('/artist/:artist_id', function (req, res) {
 //   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
