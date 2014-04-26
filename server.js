@@ -214,11 +214,12 @@ function getUserLikes(res, token) {
     if (!error && response.statusCode == 200) {
       // console.log(body);
       var body = JSON.parse(body);
+      var data = body["data"];
       var artist_names = [];
-      for (item in body["data"]) {
-        console.log(item);
-        if (item["category"].equals("Musician/band")) {
-          artist_names.push(item["name"]);
+      for (item in data) {
+        //console.log(item);
+        if (data[item]["category"] == "Musician/band") {
+          artist_names.push(data[item]["name"]);
         }
       }
       res.json(artist_names);
