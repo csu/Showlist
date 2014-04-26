@@ -99,15 +99,19 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 app.get('/artist/:artist_id', function (req, res) {
   Review.find({"artist_id": req.params.artist_id}, function(err, reviews) {
-          var photo_arr = []
-          for (item in reviews) {
-            User.findOne({"user_id": reviews[item].creator }, function (err2, creator) {
-              photo_arr.push(creator.photo);
-            });
-          }
+          // var photo_arr = {};
+          // for (item in reviews) {
+          //   User.findOne({"user_id": reviews[item].creator }, function (err2, creator) {
+          //     console.log(creator.photo);
+          //     photo_arr.push(creator.photo);
+          //   });
+          // }
+          // //console.log(reviews);
+          // console.log(photo_arr);
           res.render('item.jade',
-            { "reviews" : reviews,
-            "photos" : photo_arr }
+            { "reviews" : reviews//,
+            //"photos" : photo_arr
+            }
           );
     });
 });
