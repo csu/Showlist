@@ -53,7 +53,7 @@ module.exports = function(passport) {
                     if (user) {
 
                         // if there is a user id already but no token (user was linked at one point and then removed)
-                        if (!user.facebook.token) {
+                        if (!user.facebook_token) {
                             user.facebook_token = token;
                             user.name  = profile.name.givenName + ' ' + profile.name.familyName;
                             user.email = (profile.emails[0].value || '').toLowerCase();
