@@ -109,7 +109,7 @@ Review.after('post', function(req, res, next) {
   var num = 0;
   Review.find({"artist_id": req.query.artist_id}, function(err, reviews) {
         for (review in reviews) {
-          avg += parseInt(review.rating);
+          avg += review.rating;
           num++;
         }
     });
@@ -150,8 +150,7 @@ app.get('/event/:event_id', function (req, res) {
   Review.find({"event_id": req.params.event_id}, function(err, reviews) {
           res.render('event.jade',
             { "reviews" : reviews,
-              "artist_rating" : rating,
-              "event_id" : req.params.event_id }
+              "artist_rating" : rating }
           );
     });
 });
