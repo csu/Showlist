@@ -1,0 +1,11 @@
+extends item-layout
+block review_content
+    for result in reviews
+        span.gridlist.itemreview
+            span.userinfo
+                span.infoimage
+                span.infoname #{result.creator}
+              span.userreview
+                span.reviewrating #{result.rating}/5
+                span.reviewtext
+                  | #{result.review_body}
