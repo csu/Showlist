@@ -157,15 +157,18 @@ app.get('/artist/:artist_id', function (req, res) {
     });
 });
 
-app.get('/event/:event_id', function (req, res) {
-  var rating = 0;
-  Artist.findOne({"event_id": req.params.artist_id}, function(err, artist) {
+function getArtistCumRating(id) {
+  Artist.findOne({artist_id: id}, function(err, artist) {
     // console.log(artist);
     rating = artist.cumulative_rating;
     // console.log(rating);
   });
+}
+
+app.get('/event/:event_id', function (req, res) {
+  var rating = 0;
   Review.find({"event_id": req.params.event_id}, function(err, reviews) {
-    console.log(reviews);
+        // console.log(reviews);
           res.render('event.jade',
             { "reviews" : reviews,
               "artist_rating" : rating,
@@ -177,11 +180,15 @@ app.get('/event/:event_id', function (req, res) {
 function getAuthTokenForUser(uid) {
   User.findOne({ user_id: uid }, function(err, result) {
     console.log(result['facebook_token']);
+    return result['facebook_token'];
   })
 }
 
 app.get('/getMusicLikes', function (req, res) {
-  getAuthTokenForUser(req.session['passport']['user']);
+  var token = getAuthTokenForUser(req.session['passport']['user']);
+  facebook.getFbData('token', 'me/likes', function(data){
+    console.log(data);
+  });
   res.send('hi');
 });
 
