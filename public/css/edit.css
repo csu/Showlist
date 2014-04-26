@@ -143,6 +143,34 @@ html{
 	display: block;
 }
 
+#top #topmenu{
+	display: block;
+	position: absolute;
+	top: 90px;
+	left: 0;
+	background-color: #333;
+	width: 190px;
+	padding: 0 30px;
+	height: auto;
+}
+
+#top #topmenu .row{
+	display: block;
+	font-size: 14px;
+	line-height: 34px;
+	color: #eee;
+	font-weight: 100;
+	border-top: 1px solid #444;
+}
+
+#top #topmenu .row.name{
+	font-style: italic;
+}
+
+#top #topmenu .row.option{
+	cursor: pointer;
+}
+
 #content{
 	width: 100%;
 	padding: 0 0 20px;
