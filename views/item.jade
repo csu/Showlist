@@ -1,4 +1,7 @@
 extends item-layout
+block rating
+    span.subtitle #{artist_rating} / 5
+
 block review_content
     for result in reviews
         span.gridlist.itemreview
