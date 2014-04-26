@@ -50,12 +50,40 @@ var Artist = app.resource = restful.model('artist', mongoose.Schema({
 Artist.register(app, '/artists');
 
 var User = app.resource = restful.model('user', mongoose.Schema({
-    provider: { type: 'string', required: true},
-    user_id: { type: 'string', unique: true, required: true},
-    full_name: { type: 'string', required: true},
-    email: { type: 'string', required: true},
-    photo: { type: 'string', required: true}
-  }))
+    provider: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true 
+    },
+    id: {
+        type: String,
+        required:true,
+        unique:true
+    },
+    displayName: {
+        type: String,
+        required:true
+    },
+    familyName: {
+        type: String,
+        required:true
+    },
+    givenName:{
+        type: String,
+        required:true
+    }
+    middleName:{
+        type: String
+    }
+    emails:{
+        value: String
+    },
+    photos:{
+        value: String
+    }
+
+}))
   .methods(['get', 'post', 'put', 'delete']);
 
 User.register(app, '/user');
