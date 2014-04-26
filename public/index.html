@@ -20,7 +20,7 @@
 				<span class="text">The Neptune | LAST NIGHT 20:00</span>
 			</span>
 		</span>
-		<span class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
+		<span id ="topMenuButton" class="title"><span class="menu"><span class="seg"></span><span class="seg"></span><span class="seg"></span></span>SHOWLIST</span>
 		<span id="rightnav">
       		<span class="nav"><span class="full"><img src="graphics/searchicon.png" style="vertical-align: bottom; margin-right: 10px;" />SEARCH</span><span class="narrow"><img src="graphics/searchicon.png" style="vertical-align: bottom;" /></span></span>
 			<span id =currentCity class="nav"><span class="full"><img src="graphics/editicon.png" style="vertical-align: bottom; margin-right: 10px;" />SET LOCATION</span><span class="narrow"><img src="graphics/editicon.png" style="vertical-align: bottom;" /></span></span>
@@ -132,8 +132,10 @@ function getLocationAndDisplay()
     {
     navigator.geolocation.getCurrentPosition(showPosition);
     }
-  else{x.innerHTML = "Geolocation is not supported by this browser.";}
+  else{x.innerHTML = "Geolocation is not supported by this browser.";
+	}
   }
+ 
 function showPosition(position)
   {
   var latitude = position.coords.latitude;
@@ -161,7 +163,7 @@ function showPosition(position)
 
   function updateLocation(){
   	$('#currentCity').html(sessionStorage.currentCity);
-  	$('#upcomingShows').html("");
+  	$('#upcomingShows').html("<span class=\"title\">UPCOMING SHOW</span>");
   	var lastFMAPI2 = "http://ws.audioscrobbler.com/2.0/?method=geo.getevents";
   $.getJSON( lastFMAPI2, {
  	location: sessionStorage.currentCity,
@@ -183,6 +185,7 @@ function showPosition(position)
   }
 
   (function() {
+  	updateLocation();
   		getLocationAndDisplay();
   		var lastFMAPI = "http://ws.audioscrobbler.com/2.0/?method=geo.getmetros";
   $.getJSON( lastFMAPI, {
@@ -204,6 +207,11 @@ function showPosition(position)
 
     });
 	})();
+
+	$( "#topMenuButton" ).click(function() {
+  		$( "#topmenu" ).toggle();
+	});
+
   </script>
 </body>
 </html>
