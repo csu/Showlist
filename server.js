@@ -188,6 +188,18 @@ function getArtistCumRating(id) {
   });
 }
 
+app.get('/', function (req, res) {
+  express.static('index.html');
+});
+
+app.get('/shit', function (req, res) {
+  express.static('review-form.html');
+});
+
+app.get('/auth/failed', function (req, res) {
+  express.static('failed_auth.html');
+});
+
 app.get('/event/:event_id', function (req, res) {
   var rating = 0;
   Review.find({"event_id": req.params.event_id}, function(err, reviews) {
@@ -230,18 +242,6 @@ function getUserLikes(res, token) {
 app.get('/api/likes', function (req, res) {
   getAuthTokenForUser(res, req.session['passport']['user']);
   // res.send();
-});
-
-app.get('/', function (req, res) {
-  express.static('index.html');
-});
-
-app.get('/shitty-review/', function (req, res) {
-  express.static('review-form.html');
-});
-
-app.get('/auth/failed', function (req, res) {
-  express.static('failed_auth.html');
 });
 
 // launch ======================================================================
