@@ -123,7 +123,7 @@ function calculateNewRating(artist_id, rating, num, cum) {
 }
 
 function updateArtistRating(artist_id, num, cum) {
-  Artist.update({"artist_id": artist_id}, { number_of_ratings: num, cumulative_rating: cum });
+  Artist.update({"artist_id": artist_id}, { $set: {number_of_ratings: num, cumulative_rating: cum }});
 }
 
 Review.after('post', function(req, res, next) {
@@ -168,7 +168,7 @@ app.get('/event/:event_id', function (req, res) {
 });
 
 app.get('/getMusicLikes', function (req, res) {
-  console.log(req.session);
+  console.log(req.session['passport']);
   res.send('hi');
 });
 
