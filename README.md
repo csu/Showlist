@@ -1,3 +1,5 @@
+Built in under 24 hours for the Facebook Seattle Regional Hackathon. Won 2nd place.
+
 # Facebook Hackathon 2014
 
 Please don't push to master. Make a branch and make changes there.
