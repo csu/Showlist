@@ -4,7 +4,7 @@
   "dependencies": {
     "express": "^4.6.0",
     "jade": "*",
-    "mongoose": "^3.9.0",
+    "mongoose": "4.2.4",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
     "passport-facebook": "*",
@@ -13,6 +13,12 @@
     "connect-flash": "*",
     "bcrypt-nodejs": "*",
     "node-restful": "^0.1.17",
-    "request": "^2.37.0"
-  }
+    "request": "^2.37.0",
+    "snyk": "1.16.0"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
